@@ -1,0 +1,5 @@
+{
+  "port": 3000,
+  "JwtSecret": "yaroslava",
+  "mongoURL": "mongodb+srv://yaroslava:19031981@basecluster.br49e.mongodb.net/TestDatabase?retryWrites=true&w=majority"
+}
