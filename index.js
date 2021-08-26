@@ -24,7 +24,7 @@ app.get('*', (req, res) => {
     res.sendFile(path.join(__dirname , 'public/index.html'))
 })
 
-const PORT = process.env.port || 8080
+const {PORT=3000, LOCAL_ADDRESS='0.0.0.0'} = process.env
 
 async function start(){
     try{
@@ -33,7 +33,7 @@ async function start(){
             useUnifiedTopology: true,
             useCreateIndex: true
         })
-        app.listen(PORT, () => console.log(`App started on port ${PORT}`))
+        app.listen(PORT, LOCAL_ADDRESS, () => console.log(`SCP Foundation started on port ${PORT}`))
     }catch (error){
         console.log('Server Error.', error.message)
     }
