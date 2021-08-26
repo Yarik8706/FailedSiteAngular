@@ -661,9 +661,14 @@ class AppComponent {
     constructor() {
         this.password = '}z#nC4Ci7~MlS4LN?5%h';
     }
+    ngOnInit() {
+        if (localStorage.getItem('access') == 'true')
+            this.access = true;
+    }
     CheckPassword() {
         if (this.userPassword == this.password) {
             this.access = true;
+            localStorage.setItem('access', 'true');
             return false;
         }
     }
