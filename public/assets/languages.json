@@ -93,6 +93,11 @@
       "article": "Статья",
       "articlePassword": "Пароль",
       "button-createArticle": "Создать статью"
+    },
+    "article": {
+      "forum": "Форум",
+      "edit": "Редактировать",
+      "translate": "Перевести"
     }
   }
 }

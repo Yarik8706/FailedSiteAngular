@@ -7,11 +7,12 @@ const router = Router()
 router.post(
     '/create-article',
     [
-        check('title', 'Название слишком короткое или его вообще нет').isLength({min: 5})
+        check('title', 'Название слишком короткое или его вообще нет').isLength({min: 3}),
+        check('text', 'Текста слишком мало').isLength({min: 30})
     ],
     async (req, res) => {
         try{
-            console.log('Данные отправились на обработку')
+
             const errors = validationResult(req)
 
             if (!errors.isEmpty()) {
@@ -20,7 +21,7 @@ router.post(
                     message: 'Некорректные данные'
                 })
             }
-            console.log('Данные берутся из переменной')
+
             const {author, title, text} = req.body
 
             const checkTitle = await Article.findOne({title})
@@ -32,13 +33,13 @@ router.post(
                     message: 'Такой article уже есть'
                 })
             }
-            console.log('Данные отправились на обработку')
+
             const article = new Article({author, title, text: text, url: translate(title)})
-            console.log("Все хорошо 1")
-            await article.save().then(() => {
-                console.log("Все хорошо 2")
-                return res.json({success: true, message: 'Статья создана, можете посмотреть ее в личном кабинете'})
-            })
+
+            await article.save()
+
+            return res.json({success: true, message: 'Статья создана, можете посмотреть ее в личном кабинете'})
+
         } catch (err) {
             res.json({success: false, message: 'Что то пошло не так, попробуйте снова'})
         }
@@ -57,13 +58,42 @@ router.post(
                  return res.json({success: false, message: 'Статья не найдена'})
              }
 
-             res.json({text: article.text, author: article.author, title: article.title, success: true, message: 'Статья найдена'})
+             res.json({success: true, text: article.text, author: article.author, title: article.title, message: 'Статья найдена'})
 
          } catch (err) {
              res.json({success: false, message: 'Что то пошло не так, попробуйте снова'})
              console.log(err)
          }
      }
+)
+router.post(
+    '/search-articles-by-title',
+    async (req, res) => {
+        try {
+
+            const {title} = req.body
+            console.log(title)
+            console.log(translate(title))
+            // query that have a runtime less than 15 minutes
+            const articles = await Article.find({url: {$regex: translate(title)}})
+            let necessaryInfo = [];
+            for (let article of articles) {
+                necessaryInfo.push({url: article.url, title: article.title})
+            }
+
+            if (!articles) {
+                return res.json({success: false, message: 'Статьи не найдена'})
+            }
+
+            console.log(articles)
+
+            res.json({articles: articles, success: true, message: 'Найдено статьей: ' + articles.length})
+
+        } catch (err) {
+            res.json({success: false, message: 'Что то пошло не так, попробуйте снова'})
+            console.log(err)
+        }
+    }
 )
 
 module.exports = router;
