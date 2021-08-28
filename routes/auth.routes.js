@@ -68,7 +68,6 @@ router.post(
             const errors = validationResult(req)
             if (!errors.isEmpty()) {
                 return res.json({
-                    errors: errors.array(),
                     success: false,
                     message: 'Некорректные данные при входе в аккаунт'
                 })

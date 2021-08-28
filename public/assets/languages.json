@@ -98,6 +98,13 @@
       "forum": "Форум",
       "edit": "Редактировать",
       "translate": "Перевести"
+    },
+    "registration": {
+      "title": "Форма регистрации",
+      "input-placeholder-name": "Имя",
+      "input-placeholder-email": "Электронная почта",
+      "input-placeholder-password": "Пароль",
+      "button-registration": "Регистрация"
     }
   }
 }
