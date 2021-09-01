@@ -72,10 +72,11 @@ router.post(
         try {
 
             const {title} = req.body
-            console.log(title)
-            console.log(translate(title))
+
             const articles = await Article.find({url: {$regex: translate(title)}})
+
             let necessaryInfo = [];
+            
             for (let article of articles) {
                 necessaryInfo.push({url: article.url, title: article.title})
             }
