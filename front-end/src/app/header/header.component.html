@@ -1,0 +1,271 @@
+<header>
+  <nav class="navbar navbar-light bg-light col">
+    <a class="navbar-brand mb-3 form-label" href="#">
+      <img src="../../assets/SCP_Foundation_(emblem).png" alt="" height="75" width="75">
+    </a>
+    <div class="col">
+      <h3>The SCP Foundation</h3>
+      Russian Branch
+    </div>
+    <form class="d-flex">
+      <input  type="search" class="form-control search mr-1" name="searching" [(ngModel)]="search" placeholder='{{Languages["input-placeholder"]}}' aria-label="Search">
+      <a type="submit" (click)="SearchArticle()" class="btn btn-outline-danger nav-link mr-3" href="search#{{search}}">{{Languages["button-search"]}}</a>
+      <button type="button" *ngIf="authService.isLoggedIn()" class="btn btn-outline-warning mr-3 create-your-article" [routerLink]="['/create-article']">{{Languages["create-your-article"]}}</button>
+      <button type="button" *ngIf="authService.isLoggedIn()" class="btn btn-outline-warning" [routerLink]="['/dashboard']">{{Languages["personalArea"]}}</button>
+      <button type="button" *ngIf="!authService.isLoggedIn()" class="btn btn-outline-danger mr-3"  [routerLink]="['/reg']">{{Languages["registration"]}}</button>
+      <button type="button" *ngIf="!authService.isLoggedIn()" class="btn btn-outline-danger"  [routerLink]="['/auth']">{{Languages["authentication"]}}</button>
+    </form>
+  </nav>
+  <nav class="nav shadow-sm justify-content-center">
+    <ul class="nav nav-tabs">
+      <li ngbDropdown class="d-inline-block">
+        <a class="nav-link" ngbDropdownToggle>{{Languages["objects"][0]}}</a>
+        <ul ngbDropdownMenu aria-labelledby="Objects">
+          <li><a ngbDropdownItem href="#">{{Languages["objects"][1]}}</a></li>
+          <li><a ngbDropdownItem href="#">{{Languages["objects"][2]}}</a></li>
+          <li><a ngbDropdownItem href="#">{{Languages["objects"][3]}}</a></li>
+          <li><a ngbDropdownItem href="#">{{Languages["objects"][4]}}</a></li>
+          <li><a ngbDropdownItem href="#">{{Languages["objects"][5]}}</a></li>
+          <li><a ngbDropdownItem href="#">{{Languages["objects"][6]}}</a></li>
+          <li><a ngbDropdownItem href="#">{{Languages["objects"][7]}}</a></li>
+          <li><a ngbDropdownItem href="#">{{Languages["objects"][8]}}</a></li>
+          <li><a ngbDropdownItem href="#">{{Languages["objects"][9]}}</a></li>
+          <li><a ngbDropdownItem href="#">{{Languages["objects"][10]}}</a></li>
+        </ul>
+      </li>
+      <li ngbDropdown class="d-inline-block">
+        <a class="nav-link" ngbDropdownToggle>{{Languages["materials"][0]}}</a>
+        <ul ngbDropdownMenu aria-labelledby="Objects">
+          <li><a ngbDropdownItem href="#">{{Languages["materials"][1]}}</a></li>
+          <li><a ngbDropdownItem href="#">{{Languages["materials"][2]}}</a></li>
+          <li><a ngbDropdownItem href="#">{{Languages["materials"][3]}}</a></li>
+          <li><a ngbDropdownItem href="#">{{Languages["materials"][4]}}</a></li>
+          <li><a ngbDropdownItem href="#">{{Languages["materials"][5]}}</a></li>
+          <li><a ngbDropdownItem href="#">{{Languages["materials"][6]}}</a></li>
+          <li><a ngbDropdownItem href="#">{{Languages["materials"][7]}}</a></li>
+          <li><a ngbDropdownItem href="#">{{Languages["materials"][8]}}</a></li>
+          <li><a ngbDropdownItem href="#">{{Languages["materials"][9]}}</a></li>
+          <li><a ngbDropdownItem href="#">{{Languages["materials"][10]}}</a></li>
+          <li><a ngbDropdownItem href="#">{{Languages["materials"][11]}}</a></li>
+          <li><a ngbDropdownItem href="#">{{Languages["materials"][12]}}</a></li>
+          <li><a ngbDropdownItem href="#">{{Languages["materials"][13]}}</a></li>
+        </ul>
+      </li>
+      <li ngbDropdown class="d-inline-block">
+        <a class="nav-link" ngbDropdownToggle>{{Languages["aboutTheOrganization"][0]}}</a>
+        <ul ngbDropdownMenu aria-labelledby="Objects">
+          <li><a ngbDropdownItem href="#">{{Languages["aboutTheOrganization"][1]}}</a></li>
+          <li><a ngbDropdownItem href="#">{{Languages["aboutTheOrganization"][2]}}</a></li>
+          <li><a ngbDropdownItem href="#">{{Languages["aboutTheOrganization"][3]}}</a></li>
+          <li><a ngbDropdownItem href="#">{{Languages["aboutTheOrganization"][4]}}</a></li>
+          <li><a ngbDropdownItem href="#">{{Languages["aboutTheOrganization"][5]}}</a></li>
+          <li><a ngbDropdownItem href="#">{{Languages["aboutTheOrganization"][6]}}</a></li>
+          <li><a ngbDropdownItem href="#">{{Languages["aboutTheOrganization"][7]}}</a></li>
+          <li><a ngbDropdownItem href="#">{{Languages["aboutTheOrganization"][8]}}</a></li>
+          <li><a ngbDropdownItem href="#">{{Languages["aboutTheOrganization"][9]}}</a></li>
+          <li><a ngbDropdownItem href="#">{{Languages["aboutTheOrganization"][10]}}</a></li>
+          <li><a ngbDropdownItem href="#">{{Languages["aboutTheOrganization"][11]}}</a></li>
+          <li><a ngbDropdownItem href="#">{{Languages["aboutTheOrganization"][12]}}</a></li>
+          <li><a ngbDropdownItem href="#">{{Languages["aboutTheOrganization"][13]}}</a></li>
+          <li><a ngbDropdownItem href="#">{{Languages["aboutTheOrganization"][14]}}</a></li>
+          <li><a ngbDropdownItem href="#">{{Languages["aboutTheOrganization"][15]}}</a></li>
+        </ul>
+      </li>
+      <li ngbDropdown class="d-inline-block">
+        <a class="nav-link" ngbDropdownToggle>{{Languages["manuals"][0]}}</a>
+        <ul ngbDropdownMenu aria-labelledby="Objects">
+          <li><a ngbDropdownItem href="#">{{Languages["manuals"][1]}}</a></li>
+          <li><a ngbDropdownItem href="#">{{Languages["manuals"][2]}}</a></li>
+          <li><a ngbDropdownItem href="#">{{Languages["manuals"][3]}}</a></li>
+          <li><a ngbDropdownItem href="#">{{Languages["manuals"][4]}}</a></li>
+          <li><a ngbDropdownItem href="#">{{Languages["manuals"][5]}}</a></li>
+          <li><a ngbDropdownItem href="#">{{Languages["manuals"][6]}}</a></li>
+        </ul>
+      </li>
+      <li ngbDropdown class="d-inline-block">
+        <a class="nav-link" ngbDropdownToggle>{{Languages["transition"][0]}}</a>
+        <ul ngbDropdownMenu aria-labelledby="Objects">
+          <li><a ngbDropdownItem href="#">{{Languages["transition"][1]}}</a></li>
+          <li><a ngbDropdownItem href="#">{{Languages["transition"][2]}}</a></li>
+          <li><a ngbDropdownItem href="#">{{Languages["transition"][3]}}</a></li>
+          <li><a ngbDropdownItem href="#">{{Languages["transition"][4]}}</a></li>
+          <li><a ngbDropdownItem href="#">{{Languages["transition"][5]}}</a></li>
+          <li><a ngbDropdownItem href="#">{{Languages["transition"][6]}}</a></li>
+          <li><a ngbDropdownItem href="#">{{Languages["transition"][7]}}</a></li>
+          <li><a ngbDropdownItem href="#">{{Languages["transition"][8]}}</a></li>
+          <li><a ngbDropdownItem href="#">{{Languages["transition"][9]}}</a></li>
+        </ul>
+      </li>
+      <li ngbDropdown class="d-inline-block">
+        <a class="nav-link" ngbDropdownToggle>{{Languages["new"][0]}}</a>
+        <ul ngbDropdownMenu aria-labelledby="Objects">
+          <li><a ngbDropdownItem href="#">{{Languages["new"][1]}}</a></li>
+          <li><a ngbDropdownItem href="#">{{Languages["new"][2]}}</a></li>
+          <li><a ngbDropdownItem href="#">{{Languages["new"][3]}}</a></li>
+        </ul>
+      </li>
+      <li class="d-inline-block">
+        <a class="nav-link" href="#">{{Languages["contacts"]}}</a>
+      </li>
+    </ul>
+  </nav>
+</header>
+<!-- Mobile Nav -->
+<!-- Боковая панель навигации -->
+<!--<div id="SmallSidenav" class="smallSidenav">-->
+<!--  <ul class="nav nav-tabs d-flex flex-column bg-light">-->
+<!--    <div class="d-block p-3 link-dark text-decoration-none" title="" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-original-title="Icon-only">-->
+<!--      <button type="button" *ngIf="!authService.isLoggedIn()" class="btn btn-outline-danger mr-3"  [routerLink]="['/reg']">{{Languages["registration"]}}</button>-->
+<!--      <button type="button" *ngIf="authService.isLoggedIn()" class="btn btn-outline-warning" [routerLink]="['/dashboard']">{{Languages["personalArea"]}}</button>-->
+<!--    </div>-->
+<!--    <li class="nav-link">-->
+<!--      <ngb-accordion #acc="ngbAccordion">-->
+<!--        <ngb-panel class="nav-link">-->
+<!--          <ng-template ngbPanelTitle>-->
+<!--            <button class="btn btn-outline-secondary">{{Languages["SCP-objects"][0]}}</button>-->
+<!--          </ng-template>-->
+<!--          <ng-template  ngbPanelContent>-->
+<!--            <ul class="nav d-flex flex-column">-->
+<!--              <li class="nav-item"><a class="btn btn-outline-secondary">{{Languages["SCP-objects"][1]}}</a></li>-->
+<!--              <li class="nav-item"><a class="btn btn-outline-secondary">{{Languages["SCP-objects"][2]}}</a></li>-->
+<!--              <li class="nav-item"><a class="btn btn-outline-secondary">{{Languages["SCP-objects"][3]}}</a></li>-->
+<!--              <li class="nav-item"><a class="btn btn-outline-secondary">{{Languages["SCP-objects"][4]}}</a></li>-->
+<!--              <li class="nav-item"><a class="btn btn-outline-secondary">{{Languages["SCP-objects"][5]}}</a></li>-->
+<!--              <li class="nav-item"><a class="btn btn-outline-secondary">{{Languages["SCP-objects"][6]}}</a></li>-->
+<!--              <li class="nav-item"><a class="btn btn-outline-secondary">{{Languages["SCP-objects"][7]}}</a></li>-->
+<!--              <li class="nav-item"><a class="btn btn-outline-secondary">{{Languages["SCP-objects"][8]}}</a></li>-->
+<!--            </ul>-->
+<!--          </ng-template>-->
+<!--        </ngb-panel>-->
+<!--        <ngb-panel class="nav-link">-->
+<!--          <ng-template ngbPanelTitle>-->
+<!--            <button class="btn btn-outline-secondary">{{Languages["SCP-library"][0]}}</button>-->
+<!--          </ng-template>-->
+<!--          <ng-template ngbPanelContent>-->
+<!--            <ul class="nav d-flex flex-column">-->
+<!--              <li class="nav-item"><a class="btn btn-outline-secondary">{{Languages["SCP-library"][1]}}</a></li>-->
+<!--              <li class="nav-item"><a class="btn btn-outline-secondary">{{Languages["SCP-library"][2]}}</a></li>-->
+<!--              <li class="nav-item"><a class="btn btn-outline-secondary">{{Languages["SCP-library"][3]}}</a></li>-->
+<!--            </ul>-->
+<!--          </ng-template>-->
+<!--        </ngb-panel>-->
+<!--        <ngb-panel class="nav-link">-->
+<!--          <ng-template ngbPanelTitle>-->
+<!--            <button class="btn btn-outline-secondary">{{Languages["Site"][0]}}</button>-->
+<!--          </ng-template>-->
+<!--          <ng-template ngbPanelContent>-->
+<!--            <ul class="nav d-flex flex-column">-->
+<!--              <li class="nav-item"><a class="btn btn-outline-secondary">{{Languages["Site"][1]}}</a></li>-->
+<!--              <li class="nav-item"><a class="btn btn-outline-secondary">{{Languages["Site"][2]}}</a></li>-->
+<!--              <li class="nav-item"><a class="btn btn-outline-secondary">{{Languages["Site"][3]}}</a></li>-->
+<!--              <li class="nav-item"><a class="btn btn-outline-secondary">{{Languages["Site"][4]}}</a></li>-->
+<!--              <li class="nav-item"><a class="btn btn-outline-secondary">{{Languages["Site"][5]}}</a></li>-->
+<!--              <li class="nav-item"><a class="btn btn-outline-secondary">{{Languages["Site"][6]}}</a></li>-->
+<!--            </ul>-->
+<!--          </ng-template>-->
+<!--        </ngb-panel>-->
+<!--      </ngb-accordion>-->
+<!--    </li>-->
+<!--    <li class="nav-link">-->
+<!--      <ngb-accordion>-->
+<!--        <ngb-panel class="nav-link">-->
+<!--          <ng-template ngbPanelTitle>-->
+<!--            <button class="btn btn-outline-secondary">{{Languages["Community"][0]}}</button>-->
+<!--          </ng-template>-->
+<!--          <ng-template ngbPanelContent>-->
+<!--            <ul class="nav d-flex flex-column">-->
+<!--              <li class="nav-item"><a class="btn btn-outline-secondary">{{Languages["Community"][1]}}</a></li>-->
+<!--              <li class="nav-item"><a class="btn btn-outline-secondary">{{Languages["Community"][2]}}</a></li>-->
+<!--              <li class="nav-item"><a class="btn btn-outline-secondary">{{Languages["Community"][3]}}</a></li>-->
+<!--            </ul>-->
+<!--          </ng-template>-->
+<!--        </ngb-panel>-->
+<!--&lt;!&ndash;      </ngb-accordion>&ndash;&gt;-->
+<!--    </li>-->
+<!--    <li class="nav-link">-->
+<!--      <ngb-accordion>-->
+<!--        <ngb-panel class="nav-link">-->
+<!--          <ng-template ngbPanelTitle>-->
+<!--            <button class="btn btn-outline-secondary">{{Languages["Polygon"][0]}}</button>-->
+<!--          </ng-template>-->
+<!--          <ng-template ngbPanelContent>-->
+<!--            <ul class="nav d-flex flex-column">-->
+<!--              <li class="nav-item"><a class="btn btn-outline-secondary">{{Languages["Polygon"][1]}}</a></li>-->
+<!--              <li class="nav-item"><a class="btn btn-outline-secondary">{{Languages["Polygon"][2]}}</a></li>-->
+<!--              <li class="nav-item"><a class="btn btn-outline-secondary">{{Languages["Polygon"][3]}}</a></li>-->
+<!--              <li class="nav-item"><a class="btn btn-outline-secondary">{{Languages["Polygon"][4]}}</a></li>-->
+<!--              <li class="nav-item"><a class="btn btn-outline-secondary">{{Languages["Polygon"][5]}}</a></li>-->
+<!--              <li class="nav-item"><a class="btn btn-outline-secondary">{{Languages["Polygon"][6]}}</a></li>-->
+<!--              <li class="nav-item"><a class="btn btn-outline-secondary">{{Languages["Polygon"][7]}}</a></li>-->
+<!--              <li class="nav-item"><a class="btn btn-outline-secondary">{{Languages["Polygon"][8]}}</a></li>-->
+<!--              <li class="nav-item"><a class="btn btn-outline-secondary">{{Languages["Polygon"][9]}}</a></li>-->
+<!--            </ul>-->
+<!--          </ng-template>-->
+<!--        </ngb-panel>-->
+<!--      </ngb-accordion>-->
+<!--    </li>-->
+<!--  </ul>-->
+<!--</div>-->
+
+<!-- Sidebar Nav -->
+<div class="sidebar">
+  <div class="logo-details">
+    <div class="logo_name">Participant Tools</div>
+    <i class='bx bx-menu' id="btn" ></i>
+  </div>
+  <ul class="nav-list">
+    <li>
+      <i class='bx bx-search'></i>
+      <input type="text" placeholder="Search...">
+      <span class="tooltip">Search</span>
+    </li>
+    <li>
+      <a [routerLink]="['/dashboard']">
+        <i class='bx bx-grid-alt'></i>
+        <span class="links_name">Dashboard</span>
+      </a>
+      <span class="tooltip">Dashboard</span>
+    </li>
+    <li >
+      <a [routerLink]="['/create-article']">
+        <i class='bx bx-add-to-queue' ></i>
+        <span class="links_name">Create your article</span>
+      </a>
+      <span class="tooltip">Create your article</span>
+    </li>
+    <li>
+      <a href="#">
+        <i class='bx bx-chat' ></i>
+        <span class="links_name">Forum</span>
+      </a>
+      <span class="tooltip">Forum</span>
+    </li>
+    <li>
+      <a href="#">
+        <i class='bx bx-heart' ></i>
+        <span class="links_name">Saved article</span>
+      </a>
+      <span class="tooltip">Saved article</span>
+    </li>
+    <li>
+      <a href="#">
+        <i class='bx bx-cog' ></i>
+        <span class="links_name">Setting</span>
+      </a>
+      <span class="tooltip">Setting</span>
+    </li>
+    <li class="profile">
+      <div class="profile-details">
+        <div class="name_job">
+          <div class="name">Prem Shahi</div>
+          <div class="job">Web designer</div>
+        </div>
+      </div>
+      <i class='bx bx-log-out' id="log_out" ></i>
+    </li>
+  </ul>
+</div>
+
+<button *ngIf="isMobile()" id="SidebarButton" class="btn btn-success nav-button" href="" (click)="openOrCloseMainSidebar()">
+  <i class="bx bx-menu"></i>
+</button>

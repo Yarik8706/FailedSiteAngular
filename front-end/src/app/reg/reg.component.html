@@ -1,0 +1,9 @@
+<br>
+<h1 class="blue">{{Languages['title']}}</h1>
+<br>
+<form (submit)="UserRegisterClick()">
+  <input type="text" [(ngModel)]="name" name="name" class="form-control" id="exampleInputName1" placeholder="{{Languages['input-placeholder-name']}}"><br>
+  <input type="email" [(ngModel)]="email" name="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="{{Languages['input-placeholder-email']}}"><br>
+  <input type="password" [(ngModel)]="password" name="password" class="form-control" id="exampleInputPassword1" placeholder="{{Languages['input-placeholder-password']}}"><br>
+  <button class="btn btn-outline-primary" type="submit">{{Languages['button-registration']}}</button>
+</form>

@@ -1,0 +1,7 @@
+<h1 class="blue">Форма авторизации</h1>
+<form (submit)="userLoginClick()">
+  <input type="email" [(ngModel)]="email" name="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Email"><br>
+  <input type="password" [(ngModel)]="password" name="password" class="form-control" id="exampleInputPassword1" placeholder="Password"><br>
+  <button class = "btn btn-outline-primary" type="submit">Авторизоваться</button>
+</form>
+

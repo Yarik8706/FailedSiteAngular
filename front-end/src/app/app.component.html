@@ -1,0 +1,8 @@
+<input [class.form-control] *ngIf="!access" [(ngModel)]="userPassword"><button *ngIf="!access" class="btn btn-outline-danger" (click)="CheckPassword()">Go</button>
+<app-header *ngIf="access"></app-header>
+<br>
+<div *ngIf="access" class="container">
+  <flash-messages></flash-messages>
+  <router-outlet></router-outlet>
+  <app-footer></app-footer>
+</div>

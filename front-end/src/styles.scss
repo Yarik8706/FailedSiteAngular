@@ -1,0 +1,22 @@
+/* You can add global styles to this file, and also import other style files */
+/* Google Font Link */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap');
+/* Importing Bootstrap SCSS file. */
+@import '~bootstrap/scss/bootstrap';
+/* This style for sidebar */
+@import "~boxicons/css/boxicons.min.css";
+/* This style for Create Your Article */
+@import '~quill/dist/quill.core.css';
+@import '~quill/dist/quill.bubble.css';
+@import '~quill/dist/quill.snow.css';
+
+$red: $danger;
+$dark: $dark;
+$white: $light;
+$blue: $primary;
+
+$margin-left: 78px;
+
+body{
+  margin-left: $margin-left;
+}

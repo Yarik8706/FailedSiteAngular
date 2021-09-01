@@ -1,0 +1,7 @@
+<div style="text-align: center">
+  <div *ngIf="isLoading"  class="spinner-border text-{{loadingWheel[getRandomInt(1, 8)]}}" role="status"></div>
+</div>
+<div class="alert alert-primary" *ngFor="let article of articles; let i = index;">
+  <span class="h3">{{articles[i].title}} </span><a class="btn btn-outline-info align-items-end" href="article/{{articles[i].url}}">Перейти</a>
+</div>
+
