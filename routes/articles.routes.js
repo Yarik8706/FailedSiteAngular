@@ -74,7 +74,6 @@ router.post(
             const {title} = req.body
             console.log(title)
             console.log(translate(title))
-            // query that have a runtime less than 15 minutes
             const articles = await Article.find({url: {$regex: translate(title)}})
             let necessaryInfo = [];
             for (let article of articles) {
@@ -84,8 +83,6 @@ router.post(
             if (!articles) {
                 return res.json({success: false, message: 'Статьи не найдена'})
             }
-
-            console.log(articles)
 
             res.json({articles: articles, success: true, message: 'Найдено статьей: ' + articles.length})
 
