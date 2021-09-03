@@ -4,11 +4,21 @@
     <span class="form-label">{{Languages["articleName"]}}</span>
     <input type="email" class="form-control" [(ngModel)]="articleTitle" [ngModelOptions]="{standalone: true}" aria-describedby="emailHelp">
   </div>
+  <p class="form-label">{{Languages["whatIsArticle"][0]}}</p>
+  <div class="form-check form-check-inline" ngbRadioGroup name="radioBasic" [(ngModel)]="whatIsArticle">
+    <label ngbButtonLabel class="form-check-input">
+      <input ngbButton type="radio" [value]="1"> SCP
+    </label>
+    <label ngbButtonLabel class="form-check-input">
+      <input ngbButton type="radio" [value]="2"> {{Languages["whatIsArticle"][1]}}
+    </label>
+    <label ngbButtonLabel class="form-check-input">
+      <input ngbButton type="radio" [value]="3"> {{Languages["whatIsArticle"][2]}}
+    </label>
+  </div>
   <div class="mb-3">
     <span class="form-label">{{Languages["article"]}}</span><br>
-
     <quill-editor class="article-style" [(ngModel)]="mainArticleText" [ngModelOptions]="{standalone: true}"></quill-editor><br>
-
-    </div>
+  </div>
   <button class="btn btn-primary" (click)="CreateArticle()">{{Languages["button-createArticle"]}}</button>
 </form>

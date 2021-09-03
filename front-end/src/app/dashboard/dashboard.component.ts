@@ -1,36 +1,46 @@
-import { Component, OnInit } from '@angular/core';
-import { AuthService } from "../auth.service";
-import { FlashMessagesService } from "angular2-flash-messages";
-import { Router } from '@angular/router';
+import {Component, Injector, OnInit} from '@angular/core';
+import {UnityComponent} from "../Unity.component";
 
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.scss']
 })
-export class DashboardComponent implements OnInit {
+export class DashboardComponent extends UnityComponent {
 
   UserName: String;
   UserEmail: String;
+  toUpdateData: boolean;
+  toUpdateName: boolean;
 
   constructor(
-    private flashMessages: FlashMessagesService,
-    private router: Router,
-    private authService: AuthService
-  ) { }
+    injector: Injector
+  ) {super(injector)}
 
   ngOnInit(): void {
-    this.UserName = localStorage.getItem('userName')
-    this.UserEmail = localStorage.getItem('userEmail')
+    console.log(localStorage.getItem('user'))
+    console.log(this.authService.getUserData())
+    this.UserName = this.authService.getUserData()["name"]
+    this.UserEmail = this.authService.getUserData()["email"]
   }
 
   logoutUser() {
     this.authService.logout();
-    this.flashMessages.show("Вы вышли из учетной записи", {
-      cssClass: 'alert-warning',
-      timeout: 4000
-    });
+    this.createFlashMessage("Вы вышли из учетной записи", "danger", 4000)
     this.router.navigate(['']);
     return false;
+  }
+
+  updateData() {
+    let data = {
+      name: this.UserName,
+      email: this.UserEmail
+    };
+    this.authService.updateUserData(data).subscribe(({message, success, token, user: user1, messages}) => {
+      if (success == false) this.createFlashMessage(message, 'danger', 4000)
+      else this.createFlashMessage(message, 'success', 4000)
+      this.toUpdateData = false;
+      this.toUpdateName = false;
+    })
   }
 }

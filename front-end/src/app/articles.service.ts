@@ -1,18 +1,20 @@
-import {Injectable} from '@angular/core';
+import {Injectable, Injector} from '@angular/core';
 import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {Subject} from "rxjs";
+import {response} from "express";
+import {filter, map} from "rxjs/operators";
+import {UnityService} from "./unity.service";
 
 @Injectable({
   providedIn: 'root'
 })
-export class ArticlesService {
+export class ArticlesService extends UnityService {
 
   private baseUrl: String;
 
-  constructor(
-    private http: HttpClient
-  ) {
-    this.baseUrl = "http://localhost:3000/articles"
+  constructor(injector: Injector) {
+    super(injector)
+    this.baseUrl = this.mainUrlServer + "/articles"
   }
 
   CreateArticle(Article) {
@@ -41,10 +43,11 @@ export class ArticlesService {
     title = {
       title: title
     }
-    return this.http.post(
+
+    return  this.http.post(
       this.baseUrl + '/search-articles-by-title',
       title,
       { headers: new HttpHeaders({ 'Content-Type': 'application/json'})}
-      ).pipe((response: any) => response);
+      ).pipe((response: any) => response)
   }
 }

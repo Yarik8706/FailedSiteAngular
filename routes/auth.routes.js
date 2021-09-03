@@ -4,6 +4,7 @@ const config = require('config')
 const jwt = require('jsonwebtoken')
 const {check, validationResult} = require('express-validator')
 const User = require('../models/User')
+const Article = require('../models/Article')
 const router = Router()
 
 router.post(
@@ -19,6 +20,7 @@ router.post(
 
             if (!errors.isEmpty()) {
                 return res.json({
+                    messages: errors.array(),
                     success: false,
                     message: 'Некорректные данные при регистрации'
                 })
@@ -66,8 +68,10 @@ router.post(
     async (req, res) => {
         try{
             const errors = validationResult(req)
+
             if (!errors.isEmpty()) {
                 return res.json({
+                    messages: errors.array(),
                     success: false,
                     message: 'Некорректные данные при входе в аккаунт'
                 })
@@ -94,6 +98,29 @@ router.post(
             res.json({token, user: user, success: true})
         } catch (error) {
             res.json({success: false, message: 'Что то пошло не так, попробуйте снова' })
+        }
+    }
+)
+
+router.post(
+    "/update-user-data",
+    async (req, res) => {
+        try{
+            
+            const {name, email} = req.body
+
+            const user = await User.findOne({email})
+
+            if(user.name == name) {
+                return res.json({message: 'Вы не изменили имя'})
+            }
+
+            await User.updateOne({email: this.email}, {$set: {name: this.name}})
+            await Article.updateMany({author: user.name}, {$set: {author: name}})
+
+            res.json({message: "Данные успешно изменены"})
+        } catch (error) {
+            res.json({message: 'Что то пошло не так, попробуйте снова' })
         }
     }
 )

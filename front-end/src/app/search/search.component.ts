@@ -51,7 +51,6 @@ export class SearchComponent extends UnityComponent{
         this.articles = articles;
         this.isLoading = false;
       }
-      return false;
     })
   }
 }

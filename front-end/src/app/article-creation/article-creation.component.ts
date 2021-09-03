@@ -16,6 +16,7 @@ export class ArticleCreationComponent extends UnityComponent {
   Languages: any;
   articleTitle: String;
   mainArticleText: String;
+  whatIsArticle: Number;
 
   constructor(
     private injector: Injector,
@@ -27,23 +28,23 @@ export class ArticleCreationComponent extends UnityComponent {
   }
 
   CreateArticle() {
-    if (this.articleTitle == undefined) {
-      this.createFlashMessage("Нет названия для статьи", 'danger', 4000)
-      return false;
-    } else if (this.mainArticleText == undefined) {
-      this.createFlashMessage("Текста нет, что показывать?", 'danger', 4000)
-      return false;
-    }
 
     let article = {
-      author: localStorage.getItem('userName'),
+      author: this.authService.getUserData()["name"],
+      email: this.authService.getUserData()["email"],
       title: this.articleTitle,
-      text: this.mainArticleText
+      text: this.mainArticleText,
+      type: this.whatIsArticle
     }
 
-    this.articleService.CreateArticle(article).subscribe(({message, success}) => {
+    this.articleService.CreateArticle(article).subscribe(({message, success, messages}) => {
       if (!success) {
+        console.log(messages)
         this.createFlashMessage(message, 'danger', 4000)
+        for (let i = 0; i <= messages.length; i++) {
+          console.log("debug")
+          this.createFlashMessage(messages[i].msg, "danger", 4000)
+        }
       } else {
         this.createFlashMessage(message, 'success', 4000)
         this.router.navigate(['/dashboard'])

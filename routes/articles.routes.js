@@ -8,7 +8,7 @@ router.post(
     '/create-article',
     [
         check('title', 'Название слишком короткое или его вообще нет').isLength({min: 3}),
-        check('text', 'Текста слишком мало').isLength({min: 30})
+        check('text', 'Текста слишком мало или его вообще нет').isLength({min: 30})
     ],
     async (req, res) => {
         try{
@@ -17,12 +17,13 @@ router.post(
 
             if (!errors.isEmpty()) {
                 return res.json({
+                    messages: errors.array(),
                     success: false,
                     message: 'Некорректные данные'
                 })
             }
 
-            const {author, title, text} = req.body
+            const {author, email, title, text, type} = req.body
 
             const checkTitle = await Article.findOne({title})
 
@@ -30,11 +31,11 @@ router.post(
             {
                 return res.json({
                     success: false,
-                    message: 'Такой article уже есть'
+                    message: 'Такой статья уже есть'
                 })
             }
 
-            const article = new Article({author, title, text: text, url: translate(title)})
+            const article = new Article({author, authorEmail: email, title, text, url: translate(title), type})
 
             await article.save()
 
@@ -55,7 +56,7 @@ router.post(
              const article = await Article.findOne({url})
 
              if(!article) {
-                 return res.json({success: false, message: 'Статья не найдена'})
+                return res.json({success: false, message: 'Статья не найдена'})
              }
 
              res.json({success: true, text: article.text, author: article.author, title: article.title, message: 'Статья найдена'})
@@ -73,10 +74,10 @@ router.post(
 
             const {title} = req.body
 
-            const articles = await Article.find({url: {$regex: translate(title)}})
+            const articles = await Article.find({title: {$regex: title}})
 
             let necessaryInfo = [];
-            
+
             for (let article of articles) {
                 necessaryInfo.push({url: article.url, title: article.title})
             }

@@ -10,10 +10,10 @@ import { AuthService } from "./auth.service";
 })
 export class UnityComponent implements OnInit {
 
-  protected flashMessages: FlashMessagesService;
-  protected router: Router;
-  protected languageService: LanguageService;
-  protected authService: AuthService
+  public flashMessages: FlashMessagesService;
+  public router: Router;
+  public languageService: LanguageService;
+  public authService: AuthService
 
   constructor(injector: Injector) {
     this.flashMessages = injector.get(FlashMessagesService);
@@ -26,7 +26,7 @@ export class UnityComponent implements OnInit {
 
   public createFlashMessage(message, cssClass: String, timeout: Number) {
     this.flashMessages.show(message, {
-      cssClass: 'alert-'+cssClass,
+      cssClass: 'alert-' + cssClass,
       timeout: timeout
     })
   }

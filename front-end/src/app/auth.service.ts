@@ -1,23 +1,25 @@
-import { Injectable } from '@angular/core';
+import {Injectable, Injector} from '@angular/core';
 import { HttpHeaders, HttpClient } from "@angular/common/http";
+import {UnityService} from "./unity.service";
 
 @Injectable({
   providedIn: 'root'
 })
-export class AuthService{
+export class AuthService extends UnityService{
 
   private baseUrl: String;
   token: any;
   user: any;
 
-  constructor(private http: HttpClient) {
-    this.baseUrl = "http://localhost:3000/login"
+  constructor(injector: Injector) {
+    super(injector)
+    this.baseUrl = this.mainUrlServer + "/login"
   }
 
   registerUser(user) {
     let headers = new HttpHeaders({ 'Content-Type': 'application/json' });
     return this.http.post(
-      this.baseUrl + 'login/reg',
+      this.baseUrl + '/reg',
       user,
       {headers: headers}
       ).pipe((response: any) => response);
@@ -32,14 +34,20 @@ export class AuthService{
       ).pipe((response: any) => response);
   }
 
-  storeUser(token, user) {
-    sessionStorage.setItem('token', token)
-    //localStorage.setItem('user', JSON.stringify(user))
-    localStorage.setItem('userName', user.name)
-    localStorage.setItem('userEmail', user.email)
-    localStorage.setItem('userPassword', user.password)
-    this.token = token;
+  updateUserData(data) {
+    let headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+    this.storeUser(data)
+    return this.post(this.baseUrl + "/update-user-data", data, headers)
+  }
+
+  storeUser(user, token?) {
+    if (token != undefined) sessionStorage.setItem('token', token); this.token = token;
+    localStorage.setItem('user', JSON.stringify(user))
     this.user = user;
+  }
+
+  getUserData() {
+    return JSON.parse(localStorage.getItem('user'))
   }
 
   logout() {

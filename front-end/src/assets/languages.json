@@ -136,7 +136,12 @@
       "articleName": "Название статьи",
       "article": "Статья",
       "articlePassword": "Пароль",
-      "button-createArticle": "Создать статью"
+      "button-createArticle": "Создать статью",
+      "whatIsArticle": [
+        "Про что эта статья?",
+        "Рассказ",
+        "Обучающая статья"
+      ]
     },
     "article": {
       "forum": "Форум",

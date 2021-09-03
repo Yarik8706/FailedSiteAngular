@@ -1,7 +1,11 @@
-<ngb-toast [autohide]="false">
-  <h1>Кабинет пользователя</h1>
-  <p>Our name - {{UserName}}</p>
-  <p>Our email - {{UserEmail}}</p>
+<div class="container">
+  <h1>Кабинет пользователя</h1><br>
+  <span *ngIf="!toUpdateName">Ваше имя - {{UserName}} </span>
+  <input *ngIf="toUpdateName" value="{{UserName}}" [(ngModel)]="UserName" class="form-control input-update">
+  <button *ngIf="toUpdateData && !toUpdateName" (click)="toUpdateName = true" class="btn btn-outline-danger">Изменить</button><br>
+  <span>Ваша почта - {{UserEmail}} </span><br>
   <br>
   <button class="btn btn-outline-warning" (click)="logoutUser()">Выйти из аккаунта</button>
-</ngb-toast>
+  <a *ngIf="!toUpdateData" class="btn btn-outline-warning" (click)="toUpdateData = true">Обновить некоторые данные</a>
+  <button *ngIf="toUpdateData" (click)="updateData()" class="btn btn-outline-danger">Изменить</button>
+</div>
