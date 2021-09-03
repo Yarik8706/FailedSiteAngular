@@ -991,7 +991,10 @@ class ArticlesService extends _unity_service__WEBPACK_IMPORTED_MODULE_2__["Unity
     constructor(injector) {
         super(injector);
         this.search$ = new rxjs__WEBPACK_IMPORTED_MODULE_1__["Subject"]();
-        this.baseUrl = this.mainUrlServer + "/articles";
+        if (this.mainUrlServer != undefined)
+            this.baseUrl = this.mainUrlServer + "/articles";
+        else
+            this.baseUrl = "/articles";
     }
     CreateArticle(Article) {
         return this.http.post(this.baseUrl + '/create-article', Article, { headers: new _angular_common_http__WEBPACK_IMPORTED_MODULE_0__["HttpHeaders"]({ 'Content-Type': 'application/json' }), responseType: null }).pipe((response) => response);
@@ -1036,7 +1039,10 @@ __webpack_require__.r(__webpack_exports__);
 class AuthService extends _unity_service__WEBPACK_IMPORTED_MODULE_1__["UnityService"] {
     constructor(injector) {
         super(injector);
-        this.baseUrl = this.mainUrlServer + "/login";
+        if (this.mainUrlServer != undefined)
+            this.baseUrl = this.mainUrlServer + "/login";
+        else
+            this.baseUrl = "/login";
     }
     registerUser(user) {
         let headers = new _angular_common_http__WEBPACK_IMPORTED_MODULE_0__["HttpHeaders"]({ 'Content-Type': 'application/json' });

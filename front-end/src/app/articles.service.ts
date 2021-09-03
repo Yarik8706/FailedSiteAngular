@@ -14,7 +14,8 @@ export class ArticlesService extends UnityService {
 
   constructor(injector: Injector) {
     super(injector)
-    this.baseUrl = this.mainUrlServer + "/articles"
+    if(this.mainUrlServer != undefined) this.baseUrl = this.mainUrlServer + "/articles"
+    else this.baseUrl = "/articles"
   }
 
   CreateArticle(Article) {

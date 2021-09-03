@@ -7,13 +7,14 @@ import {UnityService} from "./unity.service";
 })
 export class AuthService extends UnityService{
 
-  private baseUrl: String;
+  public baseUrl: String;
   token: any;
   user: any;
 
   constructor(injector: Injector) {
     super(injector)
-    this.baseUrl = this.mainUrlServer + "/login"
+    if(this.mainUrlServer != undefined) this.baseUrl = this.mainUrlServer + "/login"
+    else this.baseUrl = "/login"
   }
 
   registerUser(user) {
