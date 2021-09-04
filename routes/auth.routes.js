@@ -115,8 +115,8 @@ router.post(
                 return res.json({message: 'Вы не изменили имя'})
             }
 
-            await User.updateOne({email: this.email}, {$set: {name: this.name}})
-            await Article.updateMany({author: user.name}, {$set: {author: name}})
+            await User.updateOne({email}, {$set: {name}})
+            await Article.updateMany({email}, {$set: {author: name}})
 
             res.json({message: "Данные успешно изменены"})
         } catch (error) {
