@@ -16,6 +16,9 @@ export class ArticleComponent extends UnityComponent {
   Title: String;
   Text: String;
   Author: String;
+  private authorEmail: String;
+
+  toEdit: boolean;
 
   constructor(
     private injector: Injector,
@@ -24,11 +27,12 @@ export class ArticleComponent extends UnityComponent {
 
   ngOnInit(): void {
     this.Languages = this.ReturnLanguages("article");
+    this.toEdit = false;
     this.searchArticle()
   }
 
   searchArticle() {
-    this.articleService.SearchArticleByUrl(location.pathname).subscribe(({success, message, title, text, author}) =>{
+    this.articleService.SearchArticleByUrl(location.pathname).subscribe(({success, message, title, text, author, email: authorEmail}) =>{
       if (!success) {
         this.createFlashMessage(message, 'danger', 4000)
         this.router.navigate(['/user-error']);
@@ -36,7 +40,21 @@ export class ArticleComponent extends UnityComponent {
         this.Text = text;
         this.Title = title;
         this.Author = author;
+        this.authorEmail = authorEmail;
       }
+    })
+  }
+
+  updateData() {
+    let data = {
+      text: this.Text,
+      email: this.authorEmail
+    };
+    console.log(data)
+    this.articleService.editArticleData(data).subscribe(({message, success}) => {
+      if (success == false) this.createFlashMessage(message, 'danger', 4000)
+      else this.createFlashMessage(message, 'success', 4000)
+      this.toEdit = false;
     })
   }
 }

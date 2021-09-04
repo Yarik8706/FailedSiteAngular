@@ -10,7 +10,7 @@ import {UnityService} from "./unity.service";
 })
 export class ArticlesService extends UnityService {
 
-  private baseUrl: String;
+  private readonly baseUrl: String;
 
   constructor(injector: Injector) {
     super(injector)
@@ -45,10 +45,15 @@ export class ArticlesService extends UnityService {
       title: title
     }
 
-    return  this.http.post(
+    return this.http.post(
       this.baseUrl + '/search-articles-by-title',
       title,
       { headers: new HttpHeaders({ 'Content-Type': 'application/json'})}
       ).pipe((response: any) => response)
+  }
+
+  editArticleData(data) {
+    let headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+    return this.post(this.baseUrl + "/update-article-data", data, headers)
   }
 }

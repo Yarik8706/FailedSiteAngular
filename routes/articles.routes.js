@@ -59,10 +59,18 @@ router.post(
                 return res.json({success: false, message: 'Статья не найдена'})
              }
 
-             res.json({success: true, text: article.text, author: article.author, title: article.title, message: 'Статья найдена'})
+             console.log(article.authorEmail)
 
+             res.json({
+                 success: true,
+                 text: article.text,
+                 author: article.author,
+                 title: article.title,
+                 message: 'Статья найдена, на этот раз вам повезло',
+                 email: article.authorEmail
+            })
          } catch (err) {
-             res.json({success: false, message: 'Что то пошло не так, попробуйте снова'})
+             res.json({success: false, message: 'Что то пошло не так, на этот раз мне не повезло'})
              console.log(err)
          }
      }
@@ -91,6 +99,23 @@ router.post(
         } catch (err) {
             res.json({success: false, message: 'Что то пошло не так, попробуйте снова'})
             console.log(err)
+        }
+    }
+)
+
+router.post(
+    "/update-article-data",
+    async (req, res) => {
+        try{
+            
+            const {text, email} = req.body
+            console.log(req.body)
+
+            await Article.updateOne({authorEmail: email}, {$set: {text}})
+
+            res.json({message: "Статья успешно изменена", success: true})
+        } catch (error) {
+            res.json({message: 'Что то пошло не так, лучше не попробуйте снова' })
         }
     }
 )

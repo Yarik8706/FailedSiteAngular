@@ -13,6 +13,10 @@ export class HeaderComponent extends UnityComponent {
 
   Languages: any;
   search: String;
+  sidebar;
+  closeBtn;
+  searchBtn;
+  body;
 
   constructor(
     private injector: Injector,
@@ -21,20 +25,17 @@ export class HeaderComponent extends UnityComponent {
 
   ngOnInit(): void {
     this.Languages = this.ReturnLanguages("navbar");
-    console.log(this.isLogged())
-    if ((this.isMobile() && !this.isLogged()) || !this.isLogged()) {
-      $('.sidebar').css('display', 'none')
-      $('body').css('marginLeft', '0')
-    }
-    this.sidebar = document.querySelector(".sidebar");
-    this.closeBtn = document.querySelector("#btn");
-    this.searchBtn = document.querySelector(".bx-search");
-    this.closeBtn.addEventListener("click", () => {
-      this.sidebar.classList.toggle("open");
+    this.body = $('body');
+    this.sidebar = $(".sidebar");
+    this.closeBtn = $("#btn");
+    this.searchBtn = $(".bx-search");
+    this.optimization()
+    this.closeBtn.on("click", () => {
+      this.sidebar.toggleClass("open");
       this.menuBtnChange(); //calling the function(optional)
     });
-    this.searchBtn.addEventListener("click", () => { // Sidebar open when you click on the search icon
-      this.sidebar.classList.toggle("open");
+    this.searchBtn.on("click", () => { // Sidebar open when you click on the search icon
+      this.sidebar.toggleClass("open");
       this.menuBtnChange(); //calling the function(optional)
     });
   }
@@ -47,28 +48,44 @@ export class HeaderComponent extends UnityComponent {
     return true;
   }
 
-  openOrCloseMainSidebar() {
-    let sidebar = $('.sidebar')
-    let button = $('#SidebarButton')
-    if (sidebar.css('display') == 'none') {
-      button.css('right', '15px')
-      $('body').css('marginLeft', '78px')
-      sidebar.css("display", "block");
-      return;
+  optimization(){
+    if (this.isMobile()){
+      let topNavigation = $('.top-navigation')
+      $('.top-navigation img').css('width', '50px').css('height', '50px')
+      topNavigation.css('fontSize', '11px')
+      if (!this.isLogged()) {
+        this.sidebar.css('display', 'none')
+        this.body.css('marginLeft', '0')
+      }
+      else if(this.sidebar.css('display') != 'none')
+        $('#SidebarButton').css('bottom', '75px')
+      else if(this.sidebar.css('display') == 'none')
+        $('#SidebarButton').css('bottom', '15px')
     }
-    button.css('left', '15px')
-    $('body').css('marginLeft', '0px')
-    sidebar.css("display", "none");
   }
 
-  sidebar;
-  closeBtn;
-  searchBtn;
+  openOrCloseMainSidebar() {
+    let button = $('#SidebarButton')
+    if (this.sidebar.css('display') == 'none') {
+      button.css('bottom', '75px')
+      this.body.css('marginLeft', '78px')
+      this.sidebar.css("display", "block");
+      return;
+    }
+    button.css('bottom', '15px')
+    this.body.css('marginLeft', '0px')
+    this.sidebar.css("display", "none");
+  }
+
   // following are the code to change sidebar button(optional)
   menuBtnChange() {
-    if(this.sidebar.classList.contains("open"))
-      this.closeBtn.classList.replace("bx-menu", "bx-menu-alt-right");//replacing the icons class
-    else
-      this.closeBtn.classList.replace("bx-menu-alt-right", "bx-menu");//replacing the icons class
+    if(this.sidebar.hasClass("open")) {
+      this.closeBtn.removeClass("bx-menu")
+      this.closeBtn.addClass("bx-menu-alt-right")
+    }
+    else {
+      this.closeBtn.addClass("bx-menu")
+      this.closeBtn.removeClass("bx-menu-alt-right")
+    }
   }
 }
