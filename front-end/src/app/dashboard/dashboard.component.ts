@@ -1,5 +1,8 @@
 import {Component, Injector, OnInit} from '@angular/core';
 import {UnityComponent} from "../Unity.component";
+import {ArticlesService} from "../articles.service";
+import firebase from "firebase";
+import User = firebase.User;
 
 @Component({
   selector: 'app-dashboard',
@@ -13,15 +16,19 @@ export class DashboardComponent extends UnityComponent {
   toUpdateData: boolean;
   toUpdateName: boolean;
 
+  hasYourArticles: boolean;
+  yourArticles: any;
+  private data;
+
   constructor(
+    private articleService: ArticlesService,
     injector: Injector
   ) {super(injector)}
 
   ngOnInit(): void {
-    console.log(localStorage.getItem('user'))
-    console.log(this.authService.getUserData())
     this.UserName = this.authService.getUserData()["name"]
     this.UserEmail = this.authService.getUserData()["email"]
+    this.searchYourArticle()
   }
 
   logoutUser() {
@@ -36,11 +43,32 @@ export class DashboardComponent extends UnityComponent {
       name: this.UserName,
       email: this.UserEmail
     };
-    this.authService.updateUserData(data).subscribe(({message, success, token, user: user1, messages}) => {
-      if (success == false) this.createFlashMessage(message, 'danger', 4000)
-      else this.createFlashMessage(message, 'success', 4000)
+    this.authService.updateUserData(data).subscribe(({message, success, user}) => {
+      if (success == false){
+        this.createFlashMessage(message, 'danger', 4000)
+        this.authService.storeUser(user)
+      }
+      else {
+        this.createFlashMessage(message, 'success', 4000)
+      }
       this.toUpdateData = false;
       this.toUpdateName = false;
+    })
+  }
+
+  searchYourArticle() {
+    this.articleService.post(
+      this.articleService.baseUrl+ "/search-articles-by-author",
+      this.data = {
+        email:this.UserEmail
+      }
+      ).subscribe(({success, message, articles}) => {
+      if (!success) {
+        this.hasYourArticles = false;
+      } else {
+        this.hasYourArticles = true;
+        this.yourArticles = articles;
+      }
     })
   }
 }

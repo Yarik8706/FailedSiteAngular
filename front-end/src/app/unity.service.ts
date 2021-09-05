@@ -1,5 +1,5 @@
 import {Injectable, Injector} from '@angular/core';
-import {HttpClient} from "@angular/common/http";
+import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {response} from "express";
 
 @Injectable({
@@ -8,7 +8,7 @@ import {response} from "express";
 export class UnityService {
 
   public http: HttpClient;
-  protected mainUrlServer: String;
+  protected mainUrlServer: String = "";
 
   constructor(
     private injector: Injector
@@ -16,7 +16,8 @@ export class UnityService {
     this.http = injector.get(HttpClient)
   }
 
-  public post(url, data, headers) {
+  public post(url, data, headers?) {
+    if (!headers) headers = new HttpHeaders({ 'Content-Type': 'application/json'})
     return this.http.post(
       url,
       data,

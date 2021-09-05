@@ -5,6 +5,10 @@
   <button *ngIf="toUpdateData && !toUpdateName" (click)="toUpdateName = true" class="btn btn-outline-danger">Изменить</button><br>
   <span>Ваша почта - {{UserEmail}} </span><br>
   <br>
+  <h3>Ваши статьи: </h3>
+  <div class="alert alert-primary" *ngFor="let article of yourArticles; let i = index;">
+    <span class="h3">{{yourArticles[i].title}} </span><a class="btn btn-outline-info align-items-end" href="article/{{yourArticles[i].url}}">Перейти</a>
+  </div>
   <button class="btn btn-outline-warning" (click)="logoutUser()">Выйти из аккаунта</button>
   <a *ngIf="!toUpdateData" class="btn btn-outline-warning" (click)="toUpdateData = true">Обновить некоторые данные</a>
   <button *ngIf="toUpdateData" (click)="updateData()" class="btn btn-outline-danger">Изменить</button>

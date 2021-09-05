@@ -43,6 +43,8 @@ router.post(
 
         } catch (err) {
             res.json({success: false, message: 'Что то пошло не так, попробуйте снова'})
+            console.log(err)
+
         }
     }
 )
@@ -75,6 +77,7 @@ router.post(
          }
      }
 )
+
 router.post(
     '/search-articles-by-title',
     async (req, res) => {
@@ -91,7 +94,36 @@ router.post(
             }
 
             if (!articles) {
-                return res.json({success: false, message: 'Статьи не найдена'})
+                return res.json({success: false, message: 'Статьи не найдены'})
+            }
+
+            res.json({articles: articles, success: true, message: 'Найдено статьей: ' + articles.length})
+
+        } catch (err) {
+            res.json({success: false, message: 'Что то пошло не так, попробуйте снова'})
+            console.log(err)
+        }
+    }
+)
+
+router.post(
+    '/search-articles-by-author',
+    async (req, res) => {
+        try {
+
+            const {email} = req.body
+            console.log("Поиск пошел. Данные о пользователе - ", email)
+
+            const articles = await Article.find({authorEmail: email})
+
+            let necessaryInfo = [];
+
+            for (let article of articles) {
+                necessaryInfo.push({url: article.url, title: article.title})
+            }
+
+            if (!articles) {
+                return res.json({success: false, message: 'Статьи не найдены'})
             }
 
             res.json({articles: articles, success: true, message: 'Найдено статьей: ' + articles.length})
@@ -108,14 +140,15 @@ router.post(
     async (req, res) => {
         try{
             
-            const {text, email} = req.body
-            console.log(req.body)
+            const {text, title} = req.body
 
-            await Article.updateOne({authorEmail: email}, {$set: {text}})
+            await Article.updateOne({title}, {$set: {text}})
 
             res.json({message: "Статья успешно изменена", success: true})
         } catch (error) {
             res.json({message: 'Что то пошло не так, лучше не попробуйте снова' })
+            console.log(err)
+
         }
     }
 )

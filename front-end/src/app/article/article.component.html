@@ -1,7 +1,9 @@
 <h1 style="text-align: center">{{Title}}</h1>
-<quill-view-html *ngIf="toEdit == false" [content]="Text"theme="snow"></quill-view-html>
-<quill-editor *ngIf="toEdit" [(ngModel)]="Text"></quill-editor>
-<p>{{Author}}</p>
-<button class="btn btn-outline-warning" *ngIf="!toEdit" (click)="toEdit = true">{{Languages["edit"]}}</button>
-<button class="btn btn-outline-danger" *ngIf="toEdit" (click)="updateData()">Изменить</button>
+<quill-view-html *ngIf="toEdit == false" [content]="Text" theme="snow"></quill-view-html>
+<quill-editor *ngIf="toEdit && isLogged()" [(ngModel)]="Text"></quill-editor>
+<p>Автор: {{Author}}</p>
+<span *ngIf="isLogged()">
+  <button class="btn btn-outline-warning" *ngIf="!toEdit" (click)="toEdit=true">{{Languages["edit"]}}</button>
+  <button class="btn btn-outline-danger" *ngIf="toEdit" (click)="updateData()">Изменить</button>
+</span>
 <button class="btn btn-outline-success">{{Languages["forum"]}}</button>

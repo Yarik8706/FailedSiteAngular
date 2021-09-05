@@ -32,7 +32,7 @@ export class ArticleComponent extends UnityComponent {
   }
 
   searchArticle() {
-    this.articleService.SearchArticleByUrl(location.pathname).subscribe(({success, message, title, text, author, email: authorEmail}) =>{
+    this.articleService.SearchArticleByUrl(location.pathname).subscribe(({success, message, title, text, author, email: authorEmail, type}) =>{
       if (!success) {
         this.createFlashMessage(message, 'danger', 4000)
         this.router.navigate(['/user-error']);
@@ -48,7 +48,7 @@ export class ArticleComponent extends UnityComponent {
   updateData() {
     let data = {
       text: this.Text,
-      email: this.authorEmail
+      title: this.Title
     };
     console.log(data)
     this.articleService.editArticleData(data).subscribe(({message, success}) => {

@@ -1,9 +1,7 @@
 import { Component, Injector } from '@angular/core';
 import { ArticlesService } from "../articles.service";
-import { FlashMessagesService } from "angular2-flash-messages";
-import { Router } from '@angular/router';
-import { LanguageService } from "../language.service";
 import {UnityComponent} from "../Unity.component";
+import * as $ from "jquery";
 
 
 @Component({
@@ -17,6 +15,7 @@ export class ArticleCreationComponent extends UnityComponent {
   articleTitle: String;
   mainArticleText: String;
   whatIsArticle: Number;
+  IsScp
 
   constructor(
     private injector: Injector,
@@ -25,10 +24,12 @@ export class ArticleCreationComponent extends UnityComponent {
 
   ngOnInit(): void {
     this.Languages = this.ReturnLanguages("create-article");
+    if (this.whatIsArticle == 1) {
+      //$('input[aria-describedby=TitleArticle]').attr('type', 'number').attr('min', '3').attr('maxLength', '4')
+    }
   }
 
   CreateArticle() {
-
     let article = {
       author: this.authService.getUserData()["name"],
       email: this.authService.getUserData()["email"],

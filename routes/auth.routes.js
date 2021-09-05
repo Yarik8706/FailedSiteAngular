@@ -55,6 +55,7 @@ router.post(
             res.json({success: true, message: 'Пользователь создан'})
         } catch (error) {
             res.json({success: false, message: 'Что то пошло не так, попробуйте снова'})
+            console.log(error)
         }
     }
 )
@@ -98,6 +99,7 @@ router.post(
             res.json({token, user: user, success: true})
         } catch (error) {
             res.json({success: false, message: 'Что то пошло не так, попробуйте снова' })
+            console.log(error)
         }
     }
 )
@@ -112,15 +114,22 @@ router.post(
             const user = await User.findOne({email})
 
             if(user.name == name) {
-                return res.json({message: 'Вы не изменили имя'})
+                return res.json({message: 'Вы не изменили имя', success: false, name: user.name})
+            }
+
+            const ifHasUserWithThisName = await User.findOne({name})
+
+            if(ifHasUserWithThisName) {
+                return res.json({message: 'Такой пользователь уже есть', success: false, user})
             }
 
             await User.updateOne({email}, {$set: {name}})
-            await Article.updateMany({email}, {$set: {author: name}})
+            await Article.updateMany({authorEmail: email}, {$set: {author: name}})
 
             res.json({message: "Данные успешно изменены"})
         } catch (error) {
-            res.json({message: 'Что то пошло не так, попробуйте снова' })
+            res.json({message: 'Что то пошло не так, попробуйте снова'})
+            console.log(error)
         }
     }
 )

@@ -33,10 +33,6 @@ export class SearchComponent extends UnityComponent{
     this.searchArticle()
   }
 
-  getRandomInt(min, max) {
-    return Math.floor(Math.random() * (max - min)) + min;
-  }
-
   searchArticle() {
     if (location.hash.length == 1) {
       this.createFlashMessage("Вы не набрали текст для поиска", 'danger', 4000)

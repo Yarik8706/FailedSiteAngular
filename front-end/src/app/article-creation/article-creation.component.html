@@ -1,8 +1,9 @@
 <h1 style="text-align: center">{{Languages["title"]}}</h1>
 <form>
   <div class="mb-3">
-    <span class="form-label">{{Languages["articleName"]}}</span>
-    <input type="email" class="form-control" [(ngModel)]="articleTitle" [ngModelOptions]="{standalone: true}" aria-describedby="emailHelp">
+    <span class="form-label" *ngIf="whatIsArticle != 1">{{Languages["articleName"]}}</span>
+    <span class="form-label" *ngIf="whatIsArticle == 1">{{Languages["SCPNumber"]}}</span>
+    <input type="text" class="form-control" [(ngModel)]="articleTitle" [ngModelOptions]="{standalone: true}" aria-describedby="TitleArticle">
   </div>
   <p class="form-label">{{Languages["whatIsArticle"][0]}}</p>
   <div class="form-check form-check-inline" ngbRadioGroup name="radioBasic" [(ngModel)]="whatIsArticle">

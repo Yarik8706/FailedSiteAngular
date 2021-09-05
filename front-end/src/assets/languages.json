@@ -134,6 +134,7 @@
     "create-article": {
       "title": "Создание своей статьи",
       "articleName": "Название статьи",
+      "SCPNumber": "SCP номер",
       "article": "Статья",
       "articlePassword": "Пароль",
       "button-createArticle": "Создать статью",

@@ -42,4 +42,8 @@ export class UnityComponent implements OnInit {
   public isLogged(): boolean {
     return this.authService.isLoggedIn()
   }
+
+  public getRandomInt(min, max) {
+    return Math.floor(Math.random() * (max - min)) + min;
+  }
 }

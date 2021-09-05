@@ -10,7 +10,7 @@ import {UnityService} from "./unity.service";
 })
 export class ArticlesService extends UnityService {
 
-  private readonly baseUrl: String;
+  public readonly baseUrl: String;
 
   constructor(injector: Injector) {
     super(injector)
@@ -44,7 +44,6 @@ export class ArticlesService extends UnityService {
     title = {
       title: title
     }
-
     return this.http.post(
       this.baseUrl + '/search-articles-by-title',
       title,

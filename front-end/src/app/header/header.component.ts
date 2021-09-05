@@ -49,15 +49,16 @@ export class HeaderComponent extends UnityComponent {
   }
 
   optimization(){
+    if (!this.isLogged()) {
+      this.sidebar.css('display', 'none');
+      this.body.css('marginLeft', '0')
+    }
+    else this.body.css('marginLeft', '78')
     if (this.isMobile()){
       let topNavigation = $('.top-navigation')
       $('.top-navigation img').css('width', '50px').css('height', '50px')
       topNavigation.css('fontSize', '11px')
-      if (!this.isLogged()) {
-        this.sidebar.css('display', 'none')
-        this.body.css('marginLeft', '0')
-      }
-      else if(this.sidebar.css('display') != 'none')
+      if(this.sidebar.css('display') != 'none')
         $('#SidebarButton').css('bottom', '75px')
       else if(this.sidebar.css('display') == 'none')
         $('#SidebarButton').css('bottom', '15px')
