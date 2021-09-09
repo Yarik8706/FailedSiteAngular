@@ -1,8 +1,5 @@
 import {Component, Injector, OnInit} from '@angular/core';
 import {UnityComponent} from "../Unity.component";
-import {ArticlesService} from "../articles.service";
-import firebase from "firebase";
-import User = firebase.User;
 
 @Component({
   selector: 'app-dashboard',
@@ -21,7 +18,6 @@ export class DashboardComponent extends UnityComponent {
   private data;
 
   constructor(
-    private articleService: ArticlesService,
     injector: Injector
   ) {super(injector)}
 

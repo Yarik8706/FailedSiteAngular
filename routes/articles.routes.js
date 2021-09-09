@@ -112,7 +112,6 @@ router.post(
         try {
 
             const {email} = req.body
-            console.log("Поиск пошел. Данные о пользователе - ", email)
 
             const articles = await Article.find({authorEmail: email})
 

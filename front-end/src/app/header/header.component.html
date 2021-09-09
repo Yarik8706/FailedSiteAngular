@@ -9,11 +9,11 @@
     </div>
     <form class="d-flex">
       <input  type="search" class="form-control search mr-1" name="searching" [(ngModel)]="search" placeholder='{{Languages["input-placeholder"]}}' aria-label="Search">
-      <a type="submit" (click)="SearchArticle()" class="btn btn-outline-danger nav-link mr-3" href="search#{{search}}">{{Languages["button-search"]}}</a>
-      <button type="button" *ngIf="authService.isLoggedIn()" class="btn btn-outline-warning mr-3 create-your-article" [routerLink]="['/create-article']">{{Languages["create-your-article"]}}</button>
-      <button type="button" *ngIf="authService.isLoggedIn()" class="btn btn-outline-warning" [routerLink]="['/dashboard']">{{Languages["personalArea"]}}</button>
-      <button type="button" *ngIf="!authService.isLoggedIn()" class="btn btn-outline-danger mr-3"  [routerLink]="['/reg']">{{Languages["registration"]}}</button>
-      <button type="button" *ngIf="!authService.isLoggedIn()" class="btn btn-outline-danger"  [routerLink]="['/auth']">{{Languages["authentication"]}}</button>
+      <a type="submit" (click)="SearchArticle('search#'+ search)" [href]="'search#'+search" [id]="search" class="btn btn-outline-danger nav-link mr-3">{{Languages["button-search"]}}</a>
+      <button type="button" *ngIf="authService.isLoggedIn() && !isMobile()" class="btn btn-outline-warning mr-3 create-your-article" [routerLink]="['/create-article']">{{Languages["create-your-article"]}}</button>
+      <button type="button" *ngIf="authService.isLoggedIn() && !isMobile()" class="btn btn-outline-warning" [routerLink]="['/dashboard']">{{Languages["personalArea"]}}</button>
+      <button type="button" *ngIf="!authService.isLoggedIn() && !isMobile()" class="btn btn-outline-danger mr-3"  [routerLink]="['/reg']">{{Languages["registration"]}}</button>
+      <button type="button" *ngIf="!authService.isLoggedIn() && !isMobile()" class="btn btn-outline-danger"  [routerLink]="['/auth']">{{Languages["authentication"]}}</button>
     </form>
   </nav>
   <nav class="nav shadow-sm justify-content-center">
@@ -21,6 +21,14 @@
       <li ngbDropdown class="d-inline-block">
         <a class="nav-link" ngbDropdownToggle>{{Languages["objects"][0]}}</a>
         <ul ngbDropdownMenu aria-labelledby="Objects">
+          <li><a ngbDropdownItem href="#">{{Languages["SCP-objects"][1]}}</a></li>
+          <li><a ngbDropdownItem href="#">{{Languages["SCP-objects"][2]}}</a></li>
+          <li><a ngbDropdownItem href="#">{{Languages["SCP-objects"][3]}}</a></li>
+          <li><a ngbDropdownItem href="#">{{Languages["SCP-objects"][4]}}</a></li>
+          <li><a ngbDropdownItem href="#">{{Languages["SCP-objects"][5]}}</a></li>
+          <li><a ngbDropdownItem href="#">{{Languages["SCP-objects"][6]}}</a></li>
+          <li><a ngbDropdownItem href="#">{{Languages["SCP-objects"][7]}}</a></li>
+          <li><a ngbDropdownItem href="#">{{Languages["SCP-objects"][8]}}</a></li>
           <li><a ngbDropdownItem href="#">{{Languages["objects"][1]}}</a></li>
           <li><a ngbDropdownItem href="#">{{Languages["objects"][2]}}</a></li>
           <li><a ngbDropdownItem href="#">{{Languages["objects"][3]}}</a></li>
@@ -249,6 +257,13 @@
     </li>
     <li>
       <a href="#">
+        <i class='bx bxs-contact'></i>
+        <span class="links_name">Contacts</span>
+      </a>
+      <span class="tooltip">Contacts</span>
+    </li>
+    <li>
+      <a href="#">
         <i class='bx bx-cog' ></i>
         <span class="links_name">Setting</span>
       </a>
@@ -257,8 +272,8 @@
     <li class="profile">
       <div class="profile-details">
         <div class="name_job">
-          <div class="name">Prem Shahi</div>
-          <div class="job">Web designer</div>
+          <div class="name"></div>
+          <div class="job"></div>
         </div>
       </div>
       <i class='bx bx-log-out' id="log_out" ></i>
@@ -266,6 +281,6 @@
   </ul>
 </div>
 
-<button *ngIf="isMobile()" id="SidebarButton" class="btn btn-success nav-button" href="" (click)="openOrCloseMainSidebar()">
+<button *ngIf="isMobile() && isLogged()" id="SidebarButton" class="btn btn-success nav-button" href="" (click)="openOrCloseMainSidebar()">
   <i class="bx bx-menu"></i>
 </button>

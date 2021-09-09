@@ -1,6 +1,6 @@
 import {Component, Injector} from '@angular/core';
-import {ArticlesService} from "../articles.service";
 import {UnityComponent} from "../Unity.component";
+import {BootstrapColor} from "../enums/bootstrap-color.enum";
 
 @Component({
   selector: 'app-search',
@@ -12,19 +12,9 @@ export class SearchComponent extends UnityComponent{
   articles: any;
   success: boolean;
   isLoading: boolean;
-  loadingWheel: String[] = [
-    "danger",
-    "secondary",
-    "primary",
-    "dark",
-    "success",
-    "light",
-    "info",
-    "warning"
-  ]
+  bootstrapColor: any = BootstrapColor;
 
   constructor(
-    private articleService: ArticlesService,
     private injector: Injector
   ) {super(injector)}
 

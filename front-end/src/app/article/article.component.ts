@@ -21,8 +21,7 @@ export class ArticleComponent extends UnityComponent {
   toEdit: boolean;
 
   constructor(
-    private injector: Injector,
-    private articleService: ArticlesService
+    injector: Injector
   ) {super(injector)}
 
   ngOnInit(): void {

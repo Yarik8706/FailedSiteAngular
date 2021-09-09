@@ -18,14 +18,13 @@ export class ArticleCreationComponent extends UnityComponent {
   IsScp
 
   constructor(
-    private injector: Injector,
-    private articleService: ArticlesService
+    private injector: Injector
   ) {super(injector)}
 
   ngOnInit(): void {
     this.Languages = this.ReturnLanguages("create-article");
     if (this.whatIsArticle == 1) {
-      //$('input[aria-describedby=TitleArticle]').attr('type', 'number').attr('min', '3').attr('maxLength', '4')
+      $('.mb-3 > .from-control').attr('type', 'number').attr('min', '3').attr('maxLength', '4')
     }
   }
 

@@ -40,12 +40,14 @@ export class HeaderComponent extends UnityComponent {
     });
   }
 
-  SearchArticle(): boolean {
+  SearchArticle(url): boolean {
     if (this.search == undefined) {
       this.createFlashMessage("Нет текста для поиска", 'danger', 4000)
       return false;
     }
-    return true;
+    console.log(location.pathname)
+    location.href = url;
+    location.reload()
   }
 
   optimization(){
@@ -58,10 +60,13 @@ export class HeaderComponent extends UnityComponent {
       let topNavigation = $('.top-navigation')
       $('.top-navigation img').css('width', '50px').css('height', '50px')
       topNavigation.css('fontSize', '11px')
+      $('#search').css('width', '150px !important')
       if(this.sidebar.css('display') != 'none')
         $('#SidebarButton').css('bottom', '75px')
       else if(this.sidebar.css('display') == 'none')
         $('#SidebarButton').css('bottom', '15px')
+    } else {
+
     }
   }
 

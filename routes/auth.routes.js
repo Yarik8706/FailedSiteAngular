@@ -5,6 +5,7 @@ const jwt = require('jsonwebtoken')
 const {check, validationResult} = require('express-validator')
 const User = require('../models/User')
 const Article = require('../models/Article')
+const generateId = require('../untils/generateId')
 const router = Router()
 
 router.post(
@@ -16,8 +17,8 @@ router.post(
     ],
     async (req, res) => {
         try {
-            const errors = validationResult(req)
 
+            const errors = validationResult(req)
             if (!errors.isEmpty()) {
                 return res.json({
                     messages: errors.array(),
@@ -29,7 +30,6 @@ router.post(
             const {name, email, password} = req.body
 
             const checkName = await User.findOne({name})
-
             if (checkName)
             {
                 return res.json({
@@ -39,16 +39,16 @@ router.post(
             }
 
             const checkEmail = await User.findOne({email})
-
             if (checkEmail) {
                 return res.json({
                     success: false,
                     message: 'Такой пользователь уже есть'
                 })
             }
+            console.log(generateId(9) + ' userersgsgf')
 
             const hashedPassword = await bcrypt.hash(password, 12)
-            const user = new User({name, email, password: hashedPassword})
+            const user = new User({name, email, password: hashedPassword, id: await generateId(9)})
 
             await user.save()
 
@@ -104,7 +104,7 @@ router.post(
     }
 )
 
-router.post(
+router.put(
     "/update-user-data",
     async (req, res) => {
         try{

@@ -3,6 +3,7 @@ import { FlashMessagesService } from "angular2-flash-messages";
 import { Router } from '@angular/router';
 import { LanguageService } from "./language.service";
 import { AuthService } from "./auth.service";
+import {ArticlesService} from "./articles.service";
 
 @Component({
   selector: 'unity',
@@ -14,12 +15,14 @@ export class UnityComponent implements OnInit {
   public router: Router;
   public languageService: LanguageService;
   public authService: AuthService
+  public articleService: ArticlesService;
 
   constructor(injector: Injector) {
     this.flashMessages = injector.get(FlashMessagesService);
     this.router = injector.get(Router);
     this.languageService = injector.get(LanguageService);
     this.authService = injector.get(AuthService)
+    this.articleService = injector.get(ArticlesService)
   }
 
   ngOnInit(): void {}

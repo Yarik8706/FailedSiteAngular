@@ -38,7 +38,7 @@ export class AuthService extends UnityService{
   updateUserData(data) {
     let headers = new HttpHeaders({ 'Content-Type': 'application/json' });
     this.storeUser(data)
-    return this.post(this.baseUrl + "/update-user-data", data, headers)
+    return this.put(this.baseUrl + "/update-user-data", data, headers)
   }
 
   storeUser(user, token?) {

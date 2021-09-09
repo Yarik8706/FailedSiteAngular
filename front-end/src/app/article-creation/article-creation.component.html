@@ -3,7 +3,10 @@
   <div class="mb-3">
     <span class="form-label" *ngIf="whatIsArticle != 1">{{Languages["articleName"]}}</span>
     <span class="form-label" *ngIf="whatIsArticle == 1">{{Languages["SCPNumber"]}}</span>
-    <input type="text" class="form-control" [(ngModel)]="articleTitle" [ngModelOptions]="{standalone: true}" aria-describedby="TitleArticle">
+    <input type="text" class="form-control" *ngIf="whatIsArticle != 1; else SCPNumber;" [(ngModel)]="articleTitle" [ngModelOptions]="{standalone: true}" aria-describedby="TitleArticle">
+    <ng-template #SCPNumber>
+      <input type="number" class="form-control" [(ngModel)]="articleTitle" [ngModelOptions]="{standalone: true}" aria-describedby="TitleArticle">
+    </ng-template>
   </div>
   <p class="form-label">{{Languages["whatIsArticle"][0]}}</p>
   <div class="form-check form-check-inline" ngbRadioGroup name="radioBasic" [(ngModel)]="whatIsArticle">

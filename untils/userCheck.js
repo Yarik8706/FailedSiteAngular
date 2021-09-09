@@ -1,20 +1,37 @@
-const Article = require('../models/Article')
+const User = require('../models/Article')
+const GlobalPassword = require('../models/Password')
 const bcrypt = require('bcryptjs')
+const Password = require('../models/Password')
 
-const check = (user, res) => {
+const check = (user, password) => {
     
-    const checkUser = await Article.findOne({email: user.email})
+    const checkUser = await User.findOne({email: user.email})
     if (!checkUser) {
         return res.json({
             success: false,
-            message: 'Некорректные данные'
+            message: 'Ошибка'
         })
     }
 
-    const isMatch = await bcrypt.compare(checkUser.password, user.password);
-    if(!isMatch) {
-
+    const checkPassword = await bcrypt.compare(checkUser.password, user.password);
+    if(!checkPassword) {
+        return res.json({
+            success: false,
+            message: 'Ошибка'
+        })
     }
+
+    const globalPassword = await Password.findOne({id: password.id})
+    if(!globalPassword){
+        return res.json({
+            success: false,
+            message: 'Ошибка'
+        })
+    }
+    if(globalPassword.password == password.password){
+        return true
+    }
+
     return null;
 }
 module.exports = check;

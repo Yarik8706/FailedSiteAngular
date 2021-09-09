@@ -24,13 +24,13 @@ import { ArticleComponent } from './article/article.component';
 import { UserErrorComponent } from './user-error/user-error.component';
 import { SearchComponent } from './search/search.component';
 import { UnityComponent } from "./Unity.component";
-
+import { MainDirective } from './directives/main.directive';
+import { ProfileOtherUserComponent } from './profile-other-user/profile-other-user.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent},
   { path: 'reg', component: RegComponent},
   { path: 'auth', component: AuthComponent},
-  { path: 'dashboard', component: DashboardComponent, canActivate: [IsLoggedIn]},
   { path: 'create-article', component: ArticleCreationComponent, canActivate: [IsLoggedIn]},
   {
     path: 'article',
@@ -46,6 +46,21 @@ const routes: Routes = [
     children: [{
       path: '**',
       component: SearchComponent
+    }]
+  },
+  {
+    path: 'dashboard',
+    component: DashboardComponent,
+    canActivate: [IsLoggedIn]
+  },
+  {
+    path: 'dashboard',
+    component: ProfileOtherUserComponent,
+    canActivate: [IsLoggedIn],
+    children: [{
+      path: '**',
+      component: ProfileOtherUserComponent,
+      canActivate: [IsLoggedIn]
     }]
   },
   { path: '**', component: UserErrorComponent}
@@ -64,15 +79,15 @@ const routes: Routes = [
     ArticleComponent,
     UserErrorComponent,
     SearchComponent,
-    UnityComponent
+    UnityComponent,
+    MainDirective,
+    ProfileOtherUserComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     NgbModule,
-    RouterModule.forRoot(routes,{
-      anchorScrolling: 'enabled'
-    }),
+    RouterModule.forRoot(routes),
     FormsModule,
     FlashMessagesModule.forRoot(),
     HttpClientModule,

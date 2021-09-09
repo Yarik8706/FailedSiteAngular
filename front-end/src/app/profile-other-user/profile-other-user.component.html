@@ -1,0 +1,13 @@
+<div class="container">
+  <h1>Информация о пользователе</h1>
+  <span>Имя - {{User}}</span><br>
+  <span>Почта - {{Email}} </span><br>
+  <span>Дата создания - {{Date}} </span><br>
+  <span *ngIf="AboutUser">О пользователе - {{AboutUser}} </span><br>
+  <span *ngIf="Status.length != 0">Статус - {{Status}} </span><br>
+  <h3 *ngIf="articles.length != 0">Ваши статьи: </h3>
+  <div class="alert alert-primary" *ngFor="let article of articles; let i = index;">
+    <span class="h3">{{articles[i].title}} </span><a class="btn btn-outline-info align-items-end" href="article/{{articles[i].url}}">Перейти</a>
+  </div>
+  <br>
+</div>
