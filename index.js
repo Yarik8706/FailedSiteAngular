@@ -18,6 +18,8 @@ app.use('/login', require('./routes/auth.routes'))
 
 app.use('/articles', require('./routes/articles.routes'))
 
+app.use('/user', require('./routes/user.routes'))
+
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.get('*', (req, res) => {
