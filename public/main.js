@@ -29,7 +29,7 @@ __webpack_require__.r(__webpack_exports__);
 class UnityService {
     constructor(injector) {
         this.injector = injector;
-        this.mainUrlServer = "http://localhost:3000";
+        this.mainUrlServer = "";
         this.http = injector.get(_angular_common_http__WEBPACK_IMPORTED_MODULE_0__["HttpClient"]);
     }
     post(url, data, headers) {
