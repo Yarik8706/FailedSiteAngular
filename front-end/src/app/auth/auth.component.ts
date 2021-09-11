@@ -28,7 +28,7 @@ export class AuthComponent extends UnityComponent {
       password: this.password
     }
 
-    this.authService.authUser(user).subscribe(({message, success, token, user: user1, messages}) => {
+    this.authService.authUser(user).subscribe(({message, success, token, user: user1, messages, id}) => {
       if(!success) {
         this.flashMessages.show(message, {
           cssClass: 'alert-danger',
@@ -43,7 +43,7 @@ export class AuthComponent extends UnityComponent {
           timeout: 4000
         });
         this.router.navigate(['dashboard'])
-        this.authService.storeUser(user1, token);
+        this.authService.storeUser(user1, id, token);
       }
     })
   }

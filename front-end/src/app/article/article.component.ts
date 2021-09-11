@@ -16,7 +16,9 @@ export class ArticleComponent extends UnityComponent {
   Title: String;
   Text: String;
   Author: String;
+  isLikeArticle: boolean;
   private authorEmail: String;
+  articleUrl;
 
   toEdit: boolean;
 
@@ -31,11 +33,12 @@ export class ArticleComponent extends UnityComponent {
   }
 
   searchArticle() {
-    this.articleService.SearchArticleByUrl(location.pathname).subscribe(({success, message, title, text, author, email: authorEmail, type}) =>{
+    this.articleService.SearchArticleByUrl(location.pathname).subscribe(({success, message, title, text, author, email: authorEmail, type, url}) =>{
       if (!success) {
         this.createFlashMessage(message, 'danger', 4000)
         this.router.navigate(['/user-error']);
       } else {
+        this.articleUrl = url;
         this.Text = text;
         this.Title = title;
         this.Author = author;
@@ -49,11 +52,22 @@ export class ArticleComponent extends UnityComponent {
       text: this.Text,
       title: this.Title
     };
-    console.log(data)
     this.articleService.editArticleData(data).subscribe(({message, success}) => {
       if (success == false) this.createFlashMessage(message, 'danger', 4000)
       else this.createFlashMessage(message, 'success', 4000)
       this.toEdit = false;
+    })
+  }
+
+  editArticleStatus(good: boolean) {
+    this.isLikeArticle = good
+    this.articleService.editArticleStatus(good, this.articleUrl, this.getUserData()['id']).subscribe(({success, article}) => {
+      console.log(article)
+      if (!success) {
+        this.createFlashMessage("Жопа", 'danger', 4000)
+      } else {
+        this.createFlashMessage("Success", 'danger', 4000)
+      }
     })
   }
 }

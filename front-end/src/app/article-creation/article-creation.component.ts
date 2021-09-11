@@ -30,8 +30,8 @@ export class ArticleCreationComponent extends UnityComponent {
 
   CreateArticle() {
     let article = {
-      author: this.authService.getUserData()["name"],
-      email: this.authService.getUserData()["email"],
+      author: this.getUserData()["name"],
+      email: this.getUserData()["email"],
       title: this.articleTitle,
       text: this.mainArticleText,
       type: this.whatIsArticle

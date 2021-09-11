@@ -1,5 +1,6 @@
 const {Router} = require('express')
 const {check, validationResult} = require('express-validator')
+const { update } = require('../models/Article')
 const Article = require('../models/Article')
 const translate = require('../untils/translete')
 const router = Router()
@@ -35,7 +36,14 @@ router.post(
                 })
             }
 
-            const article = new Article({author, authorEmail: email, title, text, url: translate(title), type})
+            const article = new Article(
+                {author, 
+                authorEmail: email, 
+                title, 
+                text, 
+                url: translate(title), 
+                type, 
+                rating:{status: 0, whoEdit:[]}})
 
             await article.save()
 
@@ -69,7 +77,8 @@ router.post(
                  author: article.author,
                  title: article.title,
                  message: 'Статья найдена, на этот раз вам повезло',
-                 email: article.authorEmail
+                 email: article.authorEmail,
+                 url
             })
          } catch (err) {
              res.json({success: false, message: 'Что то пошло не так, на этот раз мне не повезло'})
@@ -148,6 +157,57 @@ router.post(
             res.json({message: 'Что то пошло не так, лучше не попробуйте снова' })
             console.log(err)
 
+        }
+    }
+)
+
+router.put(
+    "/edit-article-status",
+    async (req, res) => {
+        try{
+            
+            const {status, url, id} = req.body
+            
+            let article = await Article.findOne({url})
+            try{
+                let pastGrade = article.rating.whoEdit[article.rating.whoEdit.findIndex(el => el.id === id)].isDecreased
+                if(pastGrade == status){
+                    return res.json({success: true})
+                }
+                await Article.updateOne({url}, { $pull: {"rating.whoEdit": {id}}})
+                await Article.updateOne({url}, { $push: {"rating.whoEdit": {id, isDecreased: status}}})
+                await Article.updateOne({url}, { $inc: {"rating.status": pastGrade ? -1 : 1}})
+                return res.json({success: true})
+            } catch{
+                await Article.updateOne({url}, { $push: {"rating.whoEdit": {id, isDecreased: status}}})
+                await Article.updateOne({url}, { $inc: {"rating.status": status ? 1 : -1}})
+                
+                article = await Article.findOne({url})
+    
+                res.json({success: true, article})
+            }
+            
+        } catch (error) {
+            res.json({message: 'Что то пошло не так, лучше не попробуйте снова', success: false})
+            console.log(error)
+
+        }
+    }
+)
+
+router.post(
+    "/info-article-status",
+    async (req, res) => {
+        try{
+            
+            const {url} = req.body
+
+            const article = await Article.findOne({url})
+            
+            res.json({success: true, articleRating: article.rating})
+        } catch (error) {
+            res.json({message: 'Что то пошло не так, лучше не попробуйте снова', success: false})
+            console.log(err)
         }
     }
 )

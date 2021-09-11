@@ -1,5 +1,4 @@
 import { Component, Injector } from '@angular/core';
-import { AuthService } from "../auth.service";
 import {ArticlesService} from "../articles.service";
 import {UnityComponent} from "../Unity.component";
 import * as $ from 'jquery'
@@ -12,6 +11,7 @@ import * as $ from 'jquery'
 export class HeaderComponent extends UnityComponent {
 
   Languages: any;
+  UserInfo: {};
   search: String;
   sidebar;
   closeBtn;
@@ -19,13 +19,16 @@ export class HeaderComponent extends UnityComponent {
   body;
 
   constructor(
-    private injector: Injector,
-    private articlesService: ArticlesService,
+    private injector: Injector
   ) {super(injector)}
 
   ngOnInit(): void {
     this.Languages = this.ReturnLanguages("navbar");
     this.body = $('body');
+    this.UserInfo = {
+      name: this.getUserData()['name'],
+
+    }
     this.sidebar = $(".sidebar");
     this.closeBtn = $("#btn");
     this.searchBtn = $(".bx-search");
@@ -45,7 +48,6 @@ export class HeaderComponent extends UnityComponent {
       this.createFlashMessage("Нет текста для поиска", 'danger', 4000)
       return false;
     }
-    console.log(location.pathname)
     location.href = url;
     location.reload()
   }

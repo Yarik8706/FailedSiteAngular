@@ -37,10 +37,8 @@ export class ArticlesService extends UnityService {
       ).pipe((response: any) => response);
   }
 
-  public search$ = new Subject<String>();
   SearchArticlesByTitle(title) {
     title = title.slice(title.lastIndexOf('#') + 1, title.length)
-    this.search$.next(title);
     title = {
       title: title
     }
@@ -54,5 +52,23 @@ export class ArticlesService extends UnityService {
   editArticleData(data) {
     let headers = new HttpHeaders({ 'Content-Type': 'application/json' });
     return this.post(this.baseUrl + "/update-article-data", data, headers)
+  }
+
+  editArticleStatus(status, url, id: any) {
+    status = {
+      status: status,
+      url: url,
+      id: id,
+    }
+    let headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+    return this.put(this.baseUrl + "/edit-article-status", status, headers)
+  }
+
+  infoArticleStatus(url) {
+    url = {
+      url: url
+    }
+    let headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+    return this.post(this.baseUrl + "/info-article-status", url, headers)
   }
 }

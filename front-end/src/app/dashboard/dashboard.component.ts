@@ -22,8 +22,8 @@ export class DashboardComponent extends UnityComponent {
   ) {super(injector)}
 
   ngOnInit(): void {
-    this.UserName = this.authService.getUserData()["name"]
-    this.UserEmail = this.authService.getUserData()["email"]
+    this.UserName = this.getUserData()["name"]
+    this.UserEmail = this.getUserData()["email"]
     this.searchYourArticle()
   }
 

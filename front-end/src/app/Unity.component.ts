@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { LanguageService } from "./language.service";
 import { AuthService } from "./auth.service";
 import {ArticlesService} from "./articles.service";
+import {UserService} from "./services/user.service";
 
 @Component({
   selector: 'unity',
@@ -16,13 +17,15 @@ export class UnityComponent implements OnInit {
   public languageService: LanguageService;
   public authService: AuthService
   public articleService: ArticlesService;
+  public userService: UserService;
 
   constructor(injector: Injector) {
-    this.flashMessages = injector.get(FlashMessagesService);
-    this.router = injector.get(Router);
+    this.userService =     injector.get(UserService)
+    this.flashMessages =   injector.get(FlashMessagesService);
+    this.router =          injector.get(Router);
     this.languageService = injector.get(LanguageService);
-    this.authService = injector.get(AuthService)
-    this.articleService = injector.get(ArticlesService)
+    this.authService =     injector.get(AuthService)
+    this.articleService =  injector.get(ArticlesService)
   }
 
   ngOnInit(): void {}
@@ -34,11 +37,15 @@ export class UnityComponent implements OnInit {
     })
   }
 
+  public getUserData() {
+    return JSON.parse(localStorage.getItem('user'))
+  }
+
   public ReturnLanguages(to) {
     return this.languageService.ReturnLanguages()[to]
   }
 
-  public isMobile() {
+  public isMobile(): boolean {
     return window.screen.width <= 420;
   }
 
@@ -46,7 +53,7 @@ export class UnityComponent implements OnInit {
     return this.authService.isLoggedIn()
   }
 
-  public getRandomInt(min, max) {
+  public getRandomInt(min, max): Number {
     return Math.floor(Math.random() * (max - min)) + min;
   }
 }

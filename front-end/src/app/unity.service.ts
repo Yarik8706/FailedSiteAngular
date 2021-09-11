@@ -7,7 +7,7 @@ import {HttpClient, HttpHeaders} from "@angular/common/http";
 export class UnityService {
 
   public http: HttpClient;
-  protected mainUrlServer: String = "";
+  protected mainUrlServer: String = "http://localhost:3000";
 
   constructor(
     private injector: Injector
@@ -24,7 +24,7 @@ export class UnityService {
     ).pipe((response: any) => response);
   }
   public put(url, data, headers?) {
-    if (!headers) headers = new HttpHeaders({ 'Content-Type': 'application/json'})
+    headers = headers ?? new HttpHeaders({ 'Content-Type': 'application/json'})
     return this.http.put(
       url,
       data,

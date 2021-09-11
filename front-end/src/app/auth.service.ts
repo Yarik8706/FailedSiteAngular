@@ -1,5 +1,5 @@
 import {Injectable, Injector} from '@angular/core';
-import { HttpHeaders, HttpClient } from "@angular/common/http";
+import { HttpHeaders } from "@angular/common/http";
 import {UnityService} from "./unity.service";
 
 @Injectable({
@@ -8,8 +8,6 @@ import {UnityService} from "./unity.service";
 export class AuthService extends UnityService{
 
   public baseUrl: String;
-  token: any;
-  user: any;
 
   constructor(injector: Injector) {
     super(injector)
@@ -41,19 +39,13 @@ export class AuthService extends UnityService{
     return this.put(this.baseUrl + "/update-user-data", data, headers)
   }
 
-  storeUser(user, token?) {
-    if (token != undefined) sessionStorage.setItem('token', token); this.token = token;
+  storeUser(user, id?, token?) {
+    if (token != undefined) sessionStorage.setItem('token', token);
+    if (id != undefined) sessionStorage.setItem('id', id);
     localStorage.setItem('user', JSON.stringify(user))
-    this.user = user;
-  }
-
-  getUserData() {
-    return JSON.parse(localStorage.getItem('user'))
   }
 
   logout() {
-    this.token = null;
-    this.user = null;
     localStorage.clear()
     sessionStorage.clear()
   }

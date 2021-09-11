@@ -1,5 +1,4 @@
-import {Component, Injector, OnInit} from '@angular/core';
-import {UserService} from "../services/user.service";
+import {Component, Injector} from '@angular/core';
 import {UnityComponent} from "../Unity.component";
 
 @Component({
@@ -19,7 +18,6 @@ export class ProfileOtherUserComponent extends UnityComponent{
   private data;
 
   constructor(
-    private userService: UserService,
     injector: Injector
   ) {
     super(injector)

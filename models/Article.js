@@ -8,11 +8,16 @@ const schema = new Schema({
     url:        { type: String, required: true, unique: true},
     password:   { type: String, required: false},
     type:       { type: Number, required: true},
+    date:       { type: Date, default: Date.now},
     scp: {
         number: { type: Number, required: false, unique: true},
         type: { type: String, required: false}
     },
-    rating: { type: Number, required: true, default: 0}
+    rating: { 
+        whoEdit: [{id: {type: Number, unique: true}, isDecreased: {type: Boolean}}], 
+        status: { type: Number }
+    }, 
+    whoEditInfo: [{id: {type: Number}, date: {type: Date, default: Date.now}}]
 })
 
 module.exports = model('Article', schema)
