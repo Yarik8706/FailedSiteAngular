@@ -1,8 +1,4 @@
 import { Component, Injector } from '@angular/core';
-import { ArticlesService } from "../articles.service";
-import { FlashMessagesService } from "angular2-flash-messages";
-import {ActivatedRoute, Router} from "@angular/router";
-import { LanguageService } from "../language.service";
 import {UnityComponent} from "../Unity.component";
 
 @Component({
@@ -18,7 +14,9 @@ export class ArticleComponent extends UnityComponent {
   Author: String;
   isLikeArticle: boolean;
   private authorEmail: String;
+  private userId;
   articleUrl;
+  status: number;
 
   toEdit: boolean;
 
@@ -27,13 +25,15 @@ export class ArticleComponent extends UnityComponent {
   ) {super(injector)}
 
   ngOnInit(): void {
+    this.userId = this.getUserData()['id']
     this.Languages = this.ReturnLanguages("article");
     this.toEdit = false;
     this.searchArticle()
   }
 
   searchArticle() {
-    this.articleService.SearchArticleByUrl(location.pathname).subscribe(({success, message, title, text, author, email: authorEmail, type, url}) =>{
+    this.articleService.SearchArticleByUrl(location.pathname, this.getUserData()['id']).subscribe((
+      {success, message, title, text, author, email: authorEmail, type, url, userStatus, rating}) =>{
       if (!success) {
         this.createFlashMessage(message, 'danger', 4000)
         this.router.navigate(['/user-error']);
@@ -43,6 +43,8 @@ export class ArticleComponent extends UnityComponent {
         this.Title = title;
         this.Author = author;
         this.authorEmail = authorEmail;
+        this.isLikeArticle = userStatus
+        this.status = rating.status;
       }
     })
   }
@@ -60,14 +62,8 @@ export class ArticleComponent extends UnityComponent {
   }
 
   editArticleStatus(good: boolean) {
+    console.log(good)
     this.isLikeArticle = good
-    this.articleService.editArticleStatus(good, this.articleUrl, this.getUserData()['id']).subscribe(({success, article}) => {
-      console.log(article)
-      if (!success) {
-        this.createFlashMessage("Жопа", 'danger', 4000)
-      } else {
-        this.createFlashMessage("Success", 'danger', 4000)
-      }
-    })
+    this.articleService.editArticleStatus(good, this.articleUrl, this.userId).subscribe()
   }
 }

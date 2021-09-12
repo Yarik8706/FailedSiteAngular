@@ -26,9 +26,10 @@ export class ArticlesService extends UnityService {
       ).pipe((response: any) => response);
   }
 
-  SearchArticleByUrl(url) {
+  SearchArticleByUrl(url, id: number) {
     url = {
-      url: url.slice(url.lastIndexOf('/') + 1, url.length)
+      url: url.slice(url.lastIndexOf('/') + 1, url.length),
+      id: id
     }
     return this.http.post(
       this.baseUrl + '/search-article-by-url',
@@ -54,21 +55,17 @@ export class ArticlesService extends UnityService {
     return this.post(this.baseUrl + "/update-article-data", data, headers)
   }
 
-  editArticleStatus(status, url, id: any) {
-    status = {
+  editArticleStatus(status: boolean, url, id: any) {
+    url = {
       status: status,
       url: url,
-      id: id,
+      id: id
     }
-    let headers = new HttpHeaders({ 'Content-Type': 'application/json' });
-    return this.put(this.baseUrl + "/edit-article-status", status, headers)
-  }
-
-  infoArticleStatus(url) {
-    url = {
-      url: url
-    }
-    let headers = new HttpHeaders({ 'Content-Type': 'application/json' });
-    return this.post(this.baseUrl + "/info-article-status", url, headers)
+    let headers = new HttpHeaders({ 'Content-Type': 'application/json'});
+    return this.http.post(
+      this.baseUrl + "/edit-article-status",
+      url,
+      {headers}
+    ).pipe((response: any) => response)
   }
 }

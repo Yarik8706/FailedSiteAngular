@@ -99,6 +99,8 @@ const routes: Routes = [
     IsLoggedIn,
     LanguageService
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [
+    AppComponent
+  ]
 })
 export class AppModule {}

@@ -57,34 +57,49 @@ router.post(
     }
 )
 router.post(
-     '/search-article-by-url',
-     async (req, res) => {
-         try {
+    '/search-article-by-url',
+    async (req, res) => {
+        try {
 
-             const {url} = req.body
+            const {url, id} = req.body
 
-             const article = await Article.findOne({url})
+            const article = await Article.findOne({url})
 
-             if(!article) {
-                return res.json({success: false, message: 'Статья не найдена'})
-             }
+            if(!article) {
+               return res.json({success: false, message: 'Статья не найдена'})
+            }
 
-             console.log(article.authorEmail)
-
-             res.json({
-                 success: true,
-                 text: article.text,
-                 author: article.author,
-                 title: article.title,
-                 message: 'Статья найдена, на этот раз вам повезло',
-                 email: article.authorEmail,
-                 url
-            })
-         } catch (err) {
-             res.json({success: false, message: 'Что то пошло не так, на этот раз мне не повезло'})
-             console.log(err)
-         }
-     }
+            try{
+                let status = article.rating.whoEdit[article.rating.whoEdit.findIndex(el => el.id === id)].isDecreased
+                // console.log(status)
+                return res.json({
+                    success: true,
+                    text: article.text,
+                    author: article.author,
+                    title: article.title,
+                    message: 'Статья найдена, на этот раз вам повезло',
+                    email: article.authorEmail,
+                    url: article.url,
+                    rating: article.rating,
+                    userStatus: status
+               })
+            } catch{
+                return res.json({
+                    success: true,
+                    text: article.text,
+                    author: article.author,
+                    title: article.title,
+                    message: 'Статья найдена, на этот раз вам повезло',
+                    email: article.authorEmail,
+                    url: article.url,
+                    rating: article.rating
+               })
+            }
+        } catch (err) {
+            res.json({success: false, message: 'Что то пошло не так, на этот раз мне не повезло'})
+            console.log(err)
+        }
+    }
 )
 
 router.post(
@@ -161,53 +176,36 @@ router.post(
     }
 )
 
-router.put(
+router.post(
     "/edit-article-status",
     async (req, res) => {
         try{
             
             const {status, url, id} = req.body
+            console.log(req.body, " - body edit")
             
             let article = await Article.findOne({url})
             try{
-                let pastGrade = article.rating.whoEdit[article.rating.whoEdit.findIndex(el => el.id === id)].isDecreased
+                let pastGrade = article.rating.whoEdit[article.rating.whoEdit.findIndex(el => el.id == id)].isDecreased
+                console.log(pastGrade)
                 if(pastGrade == status){
                     return res.json({success: true})
                 }
-                await Article.updateOne({url}, { $pull: {"rating.whoEdit": {id}}})
+                await Article.updateOne({url}, { $pull: {"rating.whoEdit": {id: id, isDecreased: pastGrade}}})
                 await Article.updateOne({url}, { $push: {"rating.whoEdit": {id, isDecreased: status}}})
                 await Article.updateOne({url}, { $inc: {"rating.status": pastGrade ? -1 : 1}})
+
                 return res.json({success: true})
             } catch{
                 await Article.updateOne({url}, { $push: {"rating.whoEdit": {id, isDecreased: status}}})
                 await Article.updateOne({url}, { $inc: {"rating.status": status ? 1 : -1}})
-                
-                article = await Article.findOne({url})
     
-                res.json({success: true, article})
+                return res.json({success: true, article})
             }
-            
         } catch (error) {
             res.json({message: 'Что то пошло не так, лучше не попробуйте снова', success: false})
             console.log(error)
 
-        }
-    }
-)
-
-router.post(
-    "/info-article-status",
-    async (req, res) => {
-        try{
-            
-            const {url} = req.body
-
-            const article = await Article.findOne({url})
-            
-            res.json({success: true, articleRating: article.rating})
-        } catch (error) {
-            res.json({message: 'Что то пошло не так, лучше не попробуйте снова', success: false})
-            console.log(err)
         }
     }
 )

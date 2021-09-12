@@ -28,7 +28,7 @@ export class UnityService {
     return this.http.put(
       url,
       data,
-      {headers: headers}
+      {headers: headers, responseType: null}
     ).pipe((response: any) => response);
   }
 }
