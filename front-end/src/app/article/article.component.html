@@ -1,24 +1,45 @@
 <h1 style="text-align: center">{{Title}}</h1>
-<quill-view-html *ngIf="toEdit == false" [content]="Text" theme="snow"></quill-view-html>
-<quill-editor *ngIf="toEdit && isLogged()" [(ngModel)]="Text"></quill-editor>
-<p>Автор: {{Author}}</p>
-<span *ngIf="isLogged()" [ngSwitch]="isLikeArticle">
-  <button class="btn btn-outline-warning" *ngIf="!toEdit" (click)="toEdit=true">{{Languages["edit"]}}</button>
-  <button class="btn btn-outline-danger" *ngIf="toEdit" (click)="updateData()">Изменить</button>
-  <div class="btn-group btn-group-toggle">
-  <label class="btn-primary" ngbButtonLabel>
-    <input type="checkbox" ngbButton (click)="editArticleStatus(true)">
-    <i class="bx bx-like" *ngSwitchCase="false"></i>
-    <i class="bx bx-like" *ngSwitchDefault></i>
-    <i class="bx bxs-like" *ngSwitchCase="true"></i>
-  </label>
-  <label class="btn-primary" ngbButtonLabel>
-    <input type="checkbox" ngbButton (click)="editArticleStatus(false)">
-    <i class="bx bx-dislike" *ngSwitchCase="true"></i>
-    <i class="bx bx-dislike" *ngSwitchDefault></i>
-    <i class="bx bxs-dislike" *ngSwitchCase="false"></i>
-  </label>
-</div>
+<span *ngIf="!isHistoryWhoEdit; else whoEdit">
+  <quill-view-html *ngIf="toEdit == false" [content]="Text" theme="snow"></quill-view-html>
+  <quill-editor *ngIf="toEdit && isLogged()" [(ngModel)]="Text"></quill-editor>
+  <p>Автор: {{Author}}</p>
 </span>
-<button class="btn btn-outline-success">{{Languages["forum"]}}</button>
-<span *ngIf="isLogged()"> Рейтинг: {{status}}</span>
+<ng-template #whoEdit>
+  <p>
+    <ngb-alert [type]="'success'" [dismissible]="false">
+      <span class="h3">{{Author}} </span>
+      <span class="h4">{{ CreateDate}}</span>
+    </ngb-alert>
+  </p>
+  <p *ngFor="let user of EditHistory; let i = index;">
+    <ngb-alert #color [type]="bootstrapColor[getRandomInt(1, 7)]" [dismissible]="false">
+      <span class="h3">{{user.name}} </span>
+      <a class="btn btn-outline-{{color.type}}" href="dashboard/{{user.id}}">Личный кабинет</a>
+      <span class="h4"> {{user.date}}</span>
+    </ngb-alert>
+  </p>
+</ng-template>
+<span *ngIf="isLogged()">
+  <button class="btn btn-outline-warning" *ngIf="!toEdit" (click)="toEdit=true">{{Languages["edit"]}}</button>
+  <button class="btn btn-outline-danger" *ngIf="toEdit && !isHistoryWhoEdit" (click)="updateData()">Изменить</button>
+  <button class="btn btn-outline-warning" *ngIf="toEdit && !isHistoryWhoEdit" (click)="getInfoEditHistory()">История изменений</button>
+  <button class="btn btn-outline-warning" *ngIf="toEdit" (click)="isHistoryWhoEdit = false; toEdit = false">Назад</button>
+</span>
+<span *ngIf="isLogged() && !toEdit" [ngSwitch]="isLikeArticle">
+  <button class="btn btn-outline-success">{{Languages["forum"]}}</button>
+  <div class="btn-group btn-group-toggle">
+    <label class="btn-warning" ngbButtonLabel>
+      <input type="checkbox" ngbButton (click)="editArticleStatus(true)">
+      <i class="bx bx-like" *ngSwitchCase="false"></i>
+      <i class="bx bx-like" *ngSwitchDefault></i>
+      <i class="bx bxs-like" *ngSwitchCase="true"></i>
+    </label>
+    <label class="btn-warning" ngbButtonLabel>
+      <input type="checkbox" ngbButton (click)="editArticleStatus(false)">
+      <i class="bx bx-dislike" *ngSwitchCase="true"></i>
+      <i class="bx bx-dislike" *ngSwitchDefault></i>
+      <i class="bx bxs-dislike" *ngSwitchCase="false"></i>
+    </label>
+  </div>
+  <span class="h5" *ngIf="isLogged()"> Рейтинг: {{status}}</span>
+</span>

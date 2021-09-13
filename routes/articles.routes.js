@@ -2,6 +2,7 @@ const {Router} = require('express')
 const {check, validationResult} = require('express-validator')
 const { update } = require('../models/Article')
 const Article = require('../models/Article')
+const User = require('../models/User')
 const translate = require('../untils/translete')
 const router = Router()
 
@@ -43,7 +44,8 @@ router.post(
                 text, 
                 url: translate(title), 
                 type, 
-                rating:{status: 0, whoEdit:[]}})
+                rating:{status: 0, whoEdit:[]}
+            })
 
             await article.save()
 
@@ -163,15 +165,17 @@ router.post(
     async (req, res) => {
         try{
             
-            const {text, title} = req.body
+            const {text, title, id} = req.body
 
-            await Article.updateOne({title}, {$set: {text}})
+            await Article.updateOne({title}, {
+                $set: {text},
+                $push: {'whoEdit': {id: id}}
+            })
 
             res.json({message: "Статья успешно изменена", success: true})
         } catch (error) {
             res.json({message: 'Что то пошло не так, лучше не попробуйте снова' })
-            console.log(err)
-
+            console.log(error)
         }
     }
 )
@@ -182,12 +186,10 @@ router.post(
         try{
             
             const {status, url, id} = req.body
-            console.log(req.body, " - body edit")
             
             let article = await Article.findOne({url})
             try{
                 let pastGrade = article.rating.whoEdit[article.rating.whoEdit.findIndex(el => el.id == id)].isDecreased
-                console.log(pastGrade)
                 if(pastGrade == status){
                     return res.json({success: true})
                 }
@@ -205,7 +207,30 @@ router.post(
         } catch (error) {
             res.json({message: 'Что то пошло не так, лучше не попробуйте снова', success: false})
             console.log(error)
+        }
+    }
+)
 
+router.post(
+    "/article-editing-history",
+    async (req, res) => {
+        try{
+            
+            const {title} = req.body
+            
+            const article = await Article.findOne({title})
+            
+            let users = [];
+
+            for(let user of article.whoEdit){
+                let userInfo = await User.findOne({id: user.id})
+                users.push({name: userInfo.name, id: user.id, date: user.date})
+            }
+
+            return res.json({success: true, whoEdit: users, date: article.date})
+        } catch (error) {
+            res.json({message: 'Что то пошло не так, лучше не попробуйте снова', success: false})
+            console.log(error)
         }
     }
 )

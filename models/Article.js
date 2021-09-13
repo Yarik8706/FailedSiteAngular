@@ -17,7 +17,7 @@ const schema = new Schema({
         whoEdit: [{id: {type: Number, unique: true}, isDecreased: {type: Boolean}}], 
         status: { type: Number }
     }, 
-    whoEditInfo: [{id: {type: Number}, date: {type: Date, default: Date.now}}]
+    whoEdit: [{id: {type: Number}, date: {type: Date, default: Date.now}}]
 })
 
 module.exports = model('Article', schema)
