@@ -47,11 +47,12 @@ export class ArticlesService extends UnityService {
       ).pipe((response: any) => response)
   }
 
-  editArticleData(data, title, who) {
+  editArticleData(data, title, who, commit) {
     data = {
       text: data,
       title: title,
-      id: who
+      id: who,
+      commit: commit
     }
     let headers = new HttpHeaders({ 'Content-Type': 'application/json' });
     return this.post(this.baseUrl + "/update-article-data", data, headers)

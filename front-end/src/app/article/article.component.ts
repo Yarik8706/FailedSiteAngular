@@ -22,6 +22,7 @@ export class ArticleComponent extends UnityComponent {
   EditHistory;
   bootstrapColor: any = BootstrapColor;
   CreateDate;
+  Commit: String;
 
   toEdit: boolean;
 
@@ -56,7 +57,7 @@ export class ArticleComponent extends UnityComponent {
   }
 
   updateData() {
-    this.articleService.editArticleData(this.Text, this.Title, this.getUserData()['id']).subscribe(({message, success}) => {
+    this.articleService.editArticleData(this.Text, this.Title, this.getUserData()['id'], this.Commit).subscribe(({message, success}) => {
       if (success == false) this.createFlashMessage(message, 'danger', 4000)
       else this.createFlashMessage(message, 'success', 4000)
       this.toEdit = false;

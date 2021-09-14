@@ -6,24 +6,30 @@
 </span>
 <ng-template #whoEdit>
   <p>
-    <ngb-alert [type]="'success'" [dismissible]="false">
-      <span class="h3">{{Author}} </span>
+    <ngb-alert [type]="'light'" [dismissible]="false">
+      <span class="h3">{{Author}}</span>
       <span class="h4">{{ CreateDate}}</span>
     </ngb-alert>
   </p>
   <p *ngFor="let user of EditHistory; let i = index;">
-    <ngb-alert #color [type]="bootstrapColor[getRandomInt(1, 7)]" [dismissible]="false">
-      <span class="h3">{{user.name}} </span>
-      <a class="btn btn-outline-{{color.type}}" href="dashboard/{{user.id}}">Личный кабинет</a>
-      <span class="h4"> {{user.date}}</span>
+    <ngb-alert #color [type]="'light'" [dismissible]="false">
+      <a href="dashboard/{{user.id}}" class="h3">{{user.name}}</a>
+      <span style="padding-left: 20px" class="h4">{{user.date}}</span>
+      <span style="padding-left: 20px" class="h4">{{user.commit}}</span>
     </ngb-alert>
   </p>
 </ng-template>
 <span *ngIf="isLogged()">
   <button class="btn btn-outline-warning" *ngIf="!toEdit" (click)="toEdit=true">{{Languages["edit"]}}</button>
-  <button class="btn btn-outline-danger" *ngIf="toEdit && !isHistoryWhoEdit" (click)="updateData()">Изменить</button>
-  <button class="btn btn-outline-warning" *ngIf="toEdit && !isHistoryWhoEdit" (click)="getInfoEditHistory()">История изменений</button>
   <button class="btn btn-outline-warning" *ngIf="toEdit" (click)="isHistoryWhoEdit = false; toEdit = false">Назад</button>
+  <span *ngIf="toEdit && !isHistoryWhoEdit">
+    <button class="btn btn-outline-danger" (click)="updateData()">Изменить</button>
+    <button class="btn btn-outline-warning" (click)="getInfoEditHistory()">История изменений</button>
+    <div class="mb-3">
+    <label for="exampleFormControlTextarea1" class="form-label">Комментарий к изменениям: </label>
+    <textarea [(ngModel)]="Commit" class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+  </div>
+  </span>
 </span>
 <span *ngIf="isLogged() && !toEdit" [ngSwitch]="isLikeArticle">
   <button class="btn btn-outline-success">{{Languages["forum"]}}</button>
@@ -41,5 +47,5 @@
       <i class="bx bxs-dislike" *ngSwitchCase="false"></i>
     </label>
   </div>
-  <span class="h5" *ngIf="isLogged()"> Рейтинг: {{status}}</span>
+  <span class="h5" *ngIf="isLogged()">Рейтинг: {{status}}</span>
 </span>

@@ -165,11 +165,11 @@ router.post(
     async (req, res) => {
         try{
             
-            const {text, title, id} = req.body
+            const {text, title, id, commit} = req.body
 
             await Article.updateOne({title}, {
                 $set: {text},
-                $push: {'whoEdit': {id: id}}
+                $push: {'whoEdit': {id: id, commit: commit}}
             })
 
             res.json({message: "Статья успешно изменена", success: true})
@@ -224,7 +224,7 @@ router.post(
 
             for(let user of article.whoEdit){
                 let userInfo = await User.findOne({id: user.id})
-                users.push({name: userInfo.name, id: user.id, date: user.date})
+                users.push({name: userInfo.name, id: user.id, date: user.date, commit: user.commit})
             }
 
             return res.json({success: true, whoEdit: users, date: article.date})
