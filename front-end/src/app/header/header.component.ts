@@ -1,5 +1,4 @@
 import { Component, Injector } from '@angular/core';
-import {ArticlesService} from "../articles.service";
 import {UnityComponent} from "../Unity.component";
 import * as $ from 'jquery'
 
@@ -23,12 +22,10 @@ export class HeaderComponent extends UnityComponent {
   ) {super(injector)}
 
   ngOnInit(): void {
+    console.log("Что за хуйня?")
     this.Languages = this.ReturnLanguages("navbar");
     this.body = $('body');
-    this.UserInfo = {
-      name: this.getUserData()['name'],
 
-    }
     this.sidebar = $(".sidebar");
     this.closeBtn = $("#btn");
     this.searchBtn = $(".bx-search");
@@ -57,7 +54,14 @@ export class HeaderComponent extends UnityComponent {
       this.sidebar.css('display', 'none');
       this.body.css('marginLeft', '0')
     }
-    else this.body.css('marginLeft', '78')
+    else {
+      //Здесь код который должен выполняться когда пользователь зарегестрировался, но непоказыватся когда !зарегестрировался
+      this.UserInfo = {
+        name: this.getUserData()['name'],
+        status: this.getUserData()['status']
+      }
+      this.body.css('marginLeft', '78')
+    }
     if (this.isMobile()){
       let topNavigation = $('.top-navigation')
       $('.top-navigation img').css('width', '50px').css('height', '50px')

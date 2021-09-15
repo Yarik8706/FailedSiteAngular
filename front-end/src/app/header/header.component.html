@@ -118,103 +118,6 @@
     </ul>
   </nav>
 </header>
-<!-- Mobile Nav -->
-<!-- Боковая панель навигации -->
-<!--<div id="SmallSidenav" class="smallSidenav">-->
-<!--  <ul class="nav nav-tabs d-flex flex-column bg-light">-->
-<!--    <div class="d-block p-3 link-dark text-decoration-none" title="" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-original-title="Icon-only">-->
-<!--      <button type="button" *ngIf="!authService.isLoggedIn()" class="btn btn-outline-danger mr-3"  [routerLink]="['/reg']">{{Languages["registration"]}}</button>-->
-<!--      <button type="button" *ngIf="authService.isLoggedIn()" class="btn btn-outline-warning" [routerLink]="['/dashboard']">{{Languages["personalArea"]}}</button>-->
-<!--    </div>-->
-<!--    <li class="nav-link">-->
-<!--      <ngb-accordion #acc="ngbAccordion">-->
-<!--        <ngb-panel class="nav-link">-->
-<!--          <ng-template ngbPanelTitle>-->
-<!--            <button class="btn btn-outline-secondary">{{Languages["SCP-objects"][0]}}</button>-->
-<!--          </ng-template>-->
-<!--          <ng-template  ngbPanelContent>-->
-<!--            <ul class="nav d-flex flex-column">-->
-<!--              <li class="nav-item"><a class="btn btn-outline-secondary">{{Languages["SCP-objects"][1]}}</a></li>-->
-<!--              <li class="nav-item"><a class="btn btn-outline-secondary">{{Languages["SCP-objects"][2]}}</a></li>-->
-<!--              <li class="nav-item"><a class="btn btn-outline-secondary">{{Languages["SCP-objects"][3]}}</a></li>-->
-<!--              <li class="nav-item"><a class="btn btn-outline-secondary">{{Languages["SCP-objects"][4]}}</a></li>-->
-<!--              <li class="nav-item"><a class="btn btn-outline-secondary">{{Languages["SCP-objects"][5]}}</a></li>-->
-<!--              <li class="nav-item"><a class="btn btn-outline-secondary">{{Languages["SCP-objects"][6]}}</a></li>-->
-<!--              <li class="nav-item"><a class="btn btn-outline-secondary">{{Languages["SCP-objects"][7]}}</a></li>-->
-<!--              <li class="nav-item"><a class="btn btn-outline-secondary">{{Languages["SCP-objects"][8]}}</a></li>-->
-<!--            </ul>-->
-<!--          </ng-template>-->
-<!--        </ngb-panel>-->
-<!--        <ngb-panel class="nav-link">-->
-<!--          <ng-template ngbPanelTitle>-->
-<!--            <button class="btn btn-outline-secondary">{{Languages["SCP-library"][0]}}</button>-->
-<!--          </ng-template>-->
-<!--          <ng-template ngbPanelContent>-->
-<!--            <ul class="nav d-flex flex-column">-->
-<!--              <li class="nav-item"><a class="btn btn-outline-secondary">{{Languages["SCP-library"][1]}}</a></li>-->
-<!--              <li class="nav-item"><a class="btn btn-outline-secondary">{{Languages["SCP-library"][2]}}</a></li>-->
-<!--              <li class="nav-item"><a class="btn btn-outline-secondary">{{Languages["SCP-library"][3]}}</a></li>-->
-<!--            </ul>-->
-<!--          </ng-template>-->
-<!--        </ngb-panel>-->
-<!--        <ngb-panel class="nav-link">-->
-<!--          <ng-template ngbPanelTitle>-->
-<!--            <button class="btn btn-outline-secondary">{{Languages["Site"][0]}}</button>-->
-<!--          </ng-template>-->
-<!--          <ng-template ngbPanelContent>-->
-<!--            <ul class="nav d-flex flex-column">-->
-<!--              <li class="nav-item"><a class="btn btn-outline-secondary">{{Languages["Site"][1]}}</a></li>-->
-<!--              <li class="nav-item"><a class="btn btn-outline-secondary">{{Languages["Site"][2]}}</a></li>-->
-<!--              <li class="nav-item"><a class="btn btn-outline-secondary">{{Languages["Site"][3]}}</a></li>-->
-<!--              <li class="nav-item"><a class="btn btn-outline-secondary">{{Languages["Site"][4]}}</a></li>-->
-<!--              <li class="nav-item"><a class="btn btn-outline-secondary">{{Languages["Site"][5]}}</a></li>-->
-<!--              <li class="nav-item"><a class="btn btn-outline-secondary">{{Languages["Site"][6]}}</a></li>-->
-<!--            </ul>-->
-<!--          </ng-template>-->
-<!--        </ngb-panel>-->
-<!--      </ngb-accordion>-->
-<!--    </li>-->
-<!--    <li class="nav-link">-->
-<!--      <ngb-accordion>-->
-<!--        <ngb-panel class="nav-link">-->
-<!--          <ng-template ngbPanelTitle>-->
-<!--            <button class="btn btn-outline-secondary">{{Languages["Community"][0]}}</button>-->
-<!--          </ng-template>-->
-<!--          <ng-template ngbPanelContent>-->
-<!--            <ul class="nav d-flex flex-column">-->
-<!--              <li class="nav-item"><a class="btn btn-outline-secondary">{{Languages["Community"][1]}}</a></li>-->
-<!--              <li class="nav-item"><a class="btn btn-outline-secondary">{{Languages["Community"][2]}}</a></li>-->
-<!--              <li class="nav-item"><a class="btn btn-outline-secondary">{{Languages["Community"][3]}}</a></li>-->
-<!--            </ul>-->
-<!--          </ng-template>-->
-<!--        </ngb-panel>-->
-<!--&lt;!&ndash;      </ngb-accordion>&ndash;&gt;-->
-<!--    </li>-->
-<!--    <li class="nav-link">-->
-<!--      <ngb-accordion>-->
-<!--        <ngb-panel class="nav-link">-->
-<!--          <ng-template ngbPanelTitle>-->
-<!--            <button class="btn btn-outline-secondary">{{Languages["Polygon"][0]}}</button>-->
-<!--          </ng-template>-->
-<!--          <ng-template ngbPanelContent>-->
-<!--            <ul class="nav d-flex flex-column">-->
-<!--              <li class="nav-item"><a class="btn btn-outline-secondary">{{Languages["Polygon"][1]}}</a></li>-->
-<!--              <li class="nav-item"><a class="btn btn-outline-secondary">{{Languages["Polygon"][2]}}</a></li>-->
-<!--              <li class="nav-item"><a class="btn btn-outline-secondary">{{Languages["Polygon"][3]}}</a></li>-->
-<!--              <li class="nav-item"><a class="btn btn-outline-secondary">{{Languages["Polygon"][4]}}</a></li>-->
-<!--              <li class="nav-item"><a class="btn btn-outline-secondary">{{Languages["Polygon"][5]}}</a></li>-->
-<!--              <li class="nav-item"><a class="btn btn-outline-secondary">{{Languages["Polygon"][6]}}</a></li>-->
-<!--              <li class="nav-item"><a class="btn btn-outline-secondary">{{Languages["Polygon"][7]}}</a></li>-->
-<!--              <li class="nav-item"><a class="btn btn-outline-secondary">{{Languages["Polygon"][8]}}</a></li>-->
-<!--              <li class="nav-item"><a class="btn btn-outline-secondary">{{Languages["Polygon"][9]}}</a></li>-->
-<!--            </ul>-->
-<!--          </ng-template>-->
-<!--        </ngb-panel>-->
-<!--      </ngb-accordion>-->
-<!--    </li>-->
-<!--  </ul>-->
-<!--</div>-->
-
 <!-- Sidebar Nav -->
 <div class="sidebar">
   <div class="logo-details">
@@ -269,11 +172,11 @@
       </a>
       <span class="tooltip">Setting</span>
     </li>
-    <li class="profile">
+    <li class="profile" [hidden]="!isLogged()">
       <div class="profile-details">
         <div class="name_job">
-          <div class="name">{{UserInfo['name']}}</div>
-          <div class="job">{{UserInfo['status']}}</div>
+          <div class="name"><!--{{UserInfo['name']}}--></div>
+          <div class="job"><!--{{UserInfo['status']}}--></div>
         </div>
       </div>
       <i class='bx bx-log-out' id="log_out" ></i>
