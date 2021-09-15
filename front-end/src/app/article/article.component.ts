@@ -34,11 +34,12 @@ export class ArticleComponent extends UnityComponent {
     this.userId = this.getUserData()['id']
     this.Languages = this.ReturnLanguages("article");
     this.toEdit = false;
+    this.isHistoryWhoEdit = false;
     this.searchArticle()
   }
 
   searchArticle() {
-    this.articleService.SearchArticleByUrl(location.pathname, this.getUserData()['id']).subscribe((
+    this.articleService.SearchArticleByUrl(location.pathname, this.userId).subscribe((
       {success, message, title, text, author, email: authorEmail, type, url, userStatus, rating}) =>{
       if (!success) {
         this.createFlashMessage(message, 'danger', 4000)
@@ -56,19 +57,21 @@ export class ArticleComponent extends UnityComponent {
   }
 
   updateData() {
-    let data = {
-      text: this.Text,
-      title: this.Title
-    };
-    this.articleService.editArticleData(this.Text, this.Title, this.getUserData()['name'], this.Commit).subscribe(({message, success}) => {
+    this.articleService.editArticleData(this.Text, this.Title, this.userId, this.Commit).subscribe(({message, success}) => {
       if (success == false) this.createFlashMessage(message, 'danger', 4000)
       else this.createFlashMessage(message, 'success', 4000)
       this.toEdit = false;
     })
   }
 
+  getInfoEditHistory() {
+    this.articleService.infoEditArticle(this.Title).subscribe(({success, whoEdit, date}) => {
+      this.isHistoryWhoEdit = true;
+      this.EditHistory = whoEdit;
+    })
+  }
+
   editArticleStatus(good: boolean) {
-    console.log(good)
     this.isLikeArticle = good
     this.articleService.editArticleStatus(good, this.articleUrl, this.userId).subscribe()
   }

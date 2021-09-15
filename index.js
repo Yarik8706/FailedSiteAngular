@@ -37,7 +37,7 @@ async function start(){
         })
         app.listen(PORT, LOCAL_ADDRESS, () => console.log(`SCP Foundation started on port ${PORT}`))
     }catch (error){
-        console.log('Server Error.', error.message)
+        console.log('Server Error ', error)
     }
 }
 

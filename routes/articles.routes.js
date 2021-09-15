@@ -2,6 +2,7 @@ const {Router} = require('express')
 const {check, validationResult} = require('express-validator')
 const { update } = require('../models/Article')
 const Article = require('../models/Article')
+const User = require('../models/User')
 const translate = require('../untils/translete')
 const router = Router()
 
@@ -43,7 +44,8 @@ router.post(
                 text, 
                 url: translate(title), 
                 type, 
-                rating:{status: 0, whoEdit:[]}})
+                rating:{status: 0, whoEdit:[]}
+            })
 
             await article.save()
 
@@ -173,8 +175,7 @@ router.post(
             res.json({message: "Статья успешно изменена", success: true})
         } catch (error) {
             res.json({message: 'Что то пошло не так, лучше не попробуйте снова' })
-            console.log(err)
-
+            console.log(error)
         }
     }
 )
@@ -189,7 +190,6 @@ router.post(
             let article = await Article.findOne({url})
             try{
                 let pastGrade = article.rating.whoEdit[article.rating.whoEdit.findIndex(el => el.id == id)].isDecreased
-                console.log(pastGrade)
                 if(pastGrade == status){
                     return res.json({success: true})
                 }

@@ -10,10 +10,8 @@ router.post(
         try {
 
             const {id} = req.body
-            console.log(id, ' -id revsfa')
 
             const user = await User.findOne({id})
-            console.log(user, ' -user revsfa')
 
             if(!user) {
                return res.json({success: false, message: 'Такого пользователя нет'})
