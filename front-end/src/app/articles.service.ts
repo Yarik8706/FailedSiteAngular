@@ -50,7 +50,6 @@ export class ArticlesService extends UnityService {
       ).pipe((response: any) => response)
   }
 
-<<<<<<< HEAD
   editArticleData(data, title, who, commit) {
     data = {
       text: data,
@@ -58,9 +57,7 @@ export class ArticlesService extends UnityService {
       id: who,
       commit: commit
     }
-=======
-  editArticleData(data) {
->>>>>>> parent of 0eac406 (добавление истории изменений)
+
     let headers = new HttpHeaders({ 'Content-Type': 'application/json' });
     return this.post(this.baseUrl + "/update-article-data", data, headers)
   }

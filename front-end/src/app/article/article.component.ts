@@ -60,7 +60,7 @@ export class ArticleComponent extends UnityComponent {
       text: this.Text,
       title: this.Title
     };
-    this.articleService.editArticleData(data).subscribe(({message, success}) => {
+    this.articleService.editArticleData(this.Text, this.Title, this.getUserData()['name'], this.Commit).subscribe(({message, success}) => {
       if (success == false) this.createFlashMessage(message, 'danger', 4000)
       else this.createFlashMessage(message, 'success', 4000)
       this.toEdit = false;

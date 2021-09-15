@@ -1,7 +1,7 @@
 {
   "ru": {
     "navbar": {
-      "input-placeholder": "Поиск на сайте",
+      "input-placeholder": "Поиск",
       "button-search": "Поиск",
       "create-your-article": "Создать свою статью",
       "personalArea": "Личный кабинет",
@@ -125,6 +125,13 @@
         "К просмотру AMC",
         "К вычитке",
         "Удалленные"
+      ],
+      "Sidebar": [
+        "Russian Branch",
+        "Форум",
+        "Сохраненые статьи",
+        "Контакты",
+        "Настройки"
       ]
     },
     "user-error": {
