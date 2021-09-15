@@ -1,6 +1,5 @@
 import { Component, Injector } from '@angular/core';
 import {UnityComponent} from "../Unity.component";
-import {BootstrapColor} from "../enums/bootstrap-color.enum";
 
 @Component({
   selector: 'app-article',
@@ -18,11 +17,14 @@ export class ArticleComponent extends UnityComponent {
   private userId;
   articleUrl;
   status: number;
+<<<<<<< HEAD
   isHistoryWhoEdit: boolean;
   EditHistory;
   bootstrapColor: any = BootstrapColor;
   CreateDate;
   Commit: String;
+=======
+>>>>>>> parent of 0eac406 (добавление истории изменений)
 
   toEdit: boolean;
 
@@ -34,7 +36,6 @@ export class ArticleComponent extends UnityComponent {
     this.userId = this.getUserData()['id']
     this.Languages = this.ReturnLanguages("article");
     this.toEdit = false;
-    this.isHistoryWhoEdit = false;
     this.searchArticle()
   }
 
@@ -57,21 +58,23 @@ export class ArticleComponent extends UnityComponent {
   }
 
   updateData() {
+<<<<<<< HEAD
     this.articleService.editArticleData(this.Text, this.Title, this.getUserData()['id'], this.Commit).subscribe(({message, success}) => {
+=======
+    let data = {
+      text: this.Text,
+      title: this.Title
+    };
+    this.articleService.editArticleData(data).subscribe(({message, success}) => {
+>>>>>>> parent of 0eac406 (добавление истории изменений)
       if (success == false) this.createFlashMessage(message, 'danger', 4000)
       else this.createFlashMessage(message, 'success', 4000)
       this.toEdit = false;
     })
   }
 
-  getInfoEditHistory() {
-    this.articleService.infoEditArticle(this.Title).subscribe(({success, whoEdit, date}) => {
-      this.isHistoryWhoEdit = true;
-      this.EditHistory = whoEdit;
-    })
-  }
-
   editArticleStatus(good: boolean) {
+    console.log(good)
     this.isLikeArticle = good
     this.articleService.editArticleStatus(good, this.articleUrl, this.userId).subscribe()
   }

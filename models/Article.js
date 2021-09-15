@@ -17,7 +17,11 @@ const schema = new Schema({
         whoEdit: [{id: {type: Number, unique: true}, isDecreased: {type: Boolean}}], 
         status: { type: Number }
     }, 
+<<<<<<< HEAD
     whoEdit: [{id: {type: Number}, date: {type: Date, default: Date.now}, commit: {type: String}}]
+=======
+    whoEditInfo: [{id: {type: Number}, date: {type: Date, default: Date.now}}]
+>>>>>>> parent of 0eac406 (добавление истории изменений)
 })
 
 module.exports = model('Article', schema)

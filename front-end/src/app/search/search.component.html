@@ -6,7 +6,7 @@
 <!--</div>-->
 <p *ngFor="let alert of articles; let i = index;">
   <ngb-alert #color [type]="bootstrapColor[getRandomInt(1, 7)]" [dismissible]="false">
-    <span class="h3">{{alert.title}} </span>
-    <a class="btn btn-outline-{{color.type}}" href="article/{{alert.url}}">Перейти</a>
+    <span class="h3">{{articles[i].title}} </span>
+    <a class="btn btn-outline-{{color.type}}" href="article/{{articles[i].url}}">Перейти</a>
   </ngb-alert>
 </p>

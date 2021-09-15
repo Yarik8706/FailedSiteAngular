@@ -1,5 +1,8 @@
 import {Injectable, Injector} from '@angular/core';
-import {HttpHeaders} from "@angular/common/http";
+import {HttpClient, HttpHeaders} from "@angular/common/http";
+import {Subject} from "rxjs";
+import {response} from "express";
+import {filter, map} from "rxjs/operators";
 import {UnityService} from "./unity.service";
 
 @Injectable({
@@ -47,6 +50,7 @@ export class ArticlesService extends UnityService {
       ).pipe((response: any) => response)
   }
 
+<<<<<<< HEAD
   editArticleData(data, title, who, commit) {
     data = {
       text: data,
@@ -54,6 +58,9 @@ export class ArticlesService extends UnityService {
       id: who,
       commit: commit
     }
+=======
+  editArticleData(data) {
+>>>>>>> parent of 0eac406 (добавление истории изменений)
     let headers = new HttpHeaders({ 'Content-Type': 'application/json' });
     return this.post(this.baseUrl + "/update-article-data", data, headers)
   }
@@ -68,18 +75,6 @@ export class ArticlesService extends UnityService {
     return this.http.post(
       this.baseUrl + "/edit-article-status",
       url,
-      {headers}
-    ).pipe((response: any) => response)
-  }
-
-  infoEditArticle(Title: String) {
-    let data = {
-      title: Title
-    }
-    let headers = new HttpHeaders({ 'Content-Type': 'application/json'});
-    return this.http.post(
-      this.baseUrl + "/article-editing-history",
-      data,
       {headers}
     ).pipe((response: any) => response)
   }

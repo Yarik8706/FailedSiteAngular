@@ -7,8 +7,7 @@ const schema = new Schema({
     date:      { type: Date,    default: Date.now },
     password:  { type: String,  required: true },
     status:    [{type: String,  required: true }],
-    id:        { type: Number,  required: true, unique: true},
-    friends:   [{type: String}]
+    id:        { type: Number,  required: true, unique: true}
 })
 
 module.exports = model('User', schema)
