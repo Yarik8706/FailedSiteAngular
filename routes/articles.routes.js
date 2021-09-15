@@ -163,18 +163,12 @@ router.post(
     async (req, res) => {
         try{
             
-<<<<<<< HEAD
             const {text, title, id, commit} = req.body
 
             await Article.updateOne({title}, {
                 $set: {text},
                 $push: {'whoEdit': {id: id, commit: commit}}
             })
-=======
-            const {text, title} = req.body
-
-            await Article.updateOne({title}, {$set: {text}})
->>>>>>> parent of 0eac406 (добавление истории изменений)
 
             res.json({message: "Статья успешно изменена", success: true})
         } catch (error) {
@@ -191,7 +185,6 @@ router.post(
         try{
             
             const {status, url, id} = req.body
-            console.log(req.body, " - body edit")
             
             let article = await Article.findOne({url})
             try{
@@ -214,8 +207,10 @@ router.post(
         } catch (error) {
             res.json({message: 'Что то пошло не так, лучше не попробуйте снова', success: false})
             console.log(error)
+        }
+    }
+)
 
-<<<<<<< HEAD
 router.post(
     "/article-editing-history",
     async (req, res) => {
@@ -236,8 +231,6 @@ router.post(
         } catch (error) {
             res.json({message: 'Что то пошло не так, лучше не попробуйте снова', success: false})
             console.log(error)
-=======
->>>>>>> parent of 0eac406 (добавление истории изменений)
         }
     }
 )
