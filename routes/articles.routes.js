@@ -73,7 +73,8 @@ router.post(
 
             try{
                 let status = article.rating.whoEdit[article.rating.whoEdit.findIndex(el => el.id === id)].isDecreased
-                // console.log(status)
+                console.log("status ---------------------------------------------")
+                console.log(status)
                 return res.json({
                     success: true,
                     text: article.text,
@@ -169,7 +170,7 @@ router.post(
 
             await Article.updateOne({title}, {
                 $set: {text},
-                $push: {'whoEdit': {id: id, commit: commit}}
+                $push: {'whoEdit': {id, commit}}
             })
 
             res.json({message: "Статья успешно изменена", success: true})
@@ -186,6 +187,7 @@ router.post(
         try{
             
             const {status, url, id} = req.body
+            console.log(req.body)
             
             let article = await Article.findOne({url})
             try{
@@ -221,12 +223,18 @@ router.post(
             const article = await Article.findOne({title})
             
             let users = [];
-
+            console.log(article.whoEdit)
+            console.log(" Who edit end -----------------------------")
             for(let user of article.whoEdit){
+                console.log(" id --------------------------")
+                console.log(user.id, " ------------------------------ id")
                 let userInfo = await User.findOne({id: user.id})
+                console.log("user info ------------------------------------------")
+                console.log(userInfo)
                 users.push({name: userInfo.name, id: user.id, date: user.date, commit: user.commit})
             }
-
+            console.log(" user -----------------------------------------")
+            console.log(" users -- " + users)
             return res.json({success: true, whoEdit: users, date: article.date})
         } catch (error) {
             res.json({message: 'Что то пошло не так, лучше не попробуйте снова', success: false})

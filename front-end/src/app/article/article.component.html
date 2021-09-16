@@ -12,7 +12,7 @@
     </ngb-alert>
   </p>
   <p *ngFor="let user of EditHistory; let i = index;">
-    <ngb-alert #color [type]="'light'" [dismissible]="false">
+    <ngb-alert [type]="'light'" [dismissible]="false">
       <a href="dashboard/{{user.id}}" class="h3">{{user.name}}</a>
       <span style="padding-left: 20px" class="h4">{{user.date}}</span>
       <span style="padding-left: 20px" class="h4">{{user.commit}}</span>

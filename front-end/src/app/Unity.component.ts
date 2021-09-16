@@ -12,6 +12,7 @@ import {UserService} from "./services/user.service";
 })
 export class UnityComponent implements OnInit {
 
+  //
   public flashMessages: FlashMessagesService;
   public router: Router;
   public languageService: LanguageService;

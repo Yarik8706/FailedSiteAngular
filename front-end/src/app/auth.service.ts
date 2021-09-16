@@ -41,7 +41,7 @@ export class AuthService extends UnityService{
 
   storeUser(user, id?, token?) {
     if (token != undefined) sessionStorage.setItem('token', token);
-    if (id != undefined) sessionStorage.setItem('id', id);
+    if (id != undefined) localStorage.setItem('id', id);
     localStorage.setItem('user', JSON.stringify(user))
   }
 

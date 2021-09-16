@@ -1,6 +1,5 @@
 import { Component, Injector } from '@angular/core';
 import {UnityComponent} from "../Unity.component";
-import {BootstrapColor} from "../enums/bootstrap-color.enum";
 
 @Component({
   selector: 'app-article',
@@ -20,7 +19,6 @@ export class ArticleComponent extends UnityComponent {
   status: number;
   isHistoryWhoEdit: boolean;
   EditHistory;
-  bootstrapColor: any = BootstrapColor;
   CreateDate;
   Commit: String;
 
@@ -31,7 +29,7 @@ export class ArticleComponent extends UnityComponent {
   ) {super(injector)}
 
   ngOnInit(): void {
-    this.userId = this.getUserData()['id']
+    this.userId = Number(localStorage.getItem('id'))
     this.Languages = this.ReturnLanguages("article");
     this.toEdit = false;
     this.isHistoryWhoEdit = false;
@@ -50,7 +48,7 @@ export class ArticleComponent extends UnityComponent {
         this.Title = title;
         this.Author = author;
         this.authorEmail = authorEmail;
-        this.isLikeArticle = userStatus
+        this.isLikeArticle = userStatus;
         this.status = rating.status;
       }
     })
@@ -68,6 +66,7 @@ export class ArticleComponent extends UnityComponent {
     this.articleService.infoEditArticle(this.Title).subscribe(({success, whoEdit, date}) => {
       this.isHistoryWhoEdit = true;
       this.EditHistory = whoEdit;
+      this.CreateDate = date;
     })
   }
 

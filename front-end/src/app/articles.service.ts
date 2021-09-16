@@ -23,7 +23,7 @@ export class ArticlesService extends UnityService {
     ).pipe((response: any) => response);
   }
 
-  SearchArticleByUrl(url, id: number) {
+  SearchArticleByUrl(url, id) {
     url = {
       url: url.slice(url.lastIndexOf('/') + 1, url.length),
       id: id
@@ -55,6 +55,7 @@ export class ArticlesService extends UnityService {
       id: who,
       commit: commit
     }
+    console.log(who)
     let headers = new HttpHeaders({ 'Content-Type': 'application/json' });
     return this.post(this.baseUrl + "/update-article-data", data, headers)
   }

@@ -28,12 +28,12 @@ export class AuthComponent extends UnityComponent {
       password: this.password
     }
 
-    this.authService.authUser(user).subscribe(({message, success, token, user: user1, messages, id}) => {
+    this.authService.authUser(user).subscribe(({message, success, token, user: user1, messages}) => {
       if(!success) {
-        this.flashMessages.show(message, {
-          cssClass: 'alert-danger',
-          timeout: 4000
-        });
+        // this.flashMessages.show(message, {
+        //   cssClass: 'alert-danger',
+        //   timeout: 4000
+        // });
         for (let i = 0; i <= messages.length; i++) {
           this.createFlashMessage(messages[i].msg, "danger", 4000)
         }
@@ -43,7 +43,7 @@ export class AuthComponent extends UnityComponent {
           timeout: 4000
         });
         this.router.navigate(['dashboard'])
-        this.authService.storeUser(user1, id, token);
+        this.authService.storeUser(user1, user1.id, token);
       }
     })
   }
