@@ -2,13 +2,12 @@
 <span *ngIf="!isHistoryWhoEdit; else whoEdit">
   <quill-view-html *ngIf="toEdit == false" [content]="Text" theme="snow"></quill-view-html>
   <quill-editor *ngIf="toEdit && isLogged()" [(ngModel)]="Text"></quill-editor>
-  <p>Автор: {{Author}}</p>
 </span>
 <ng-template #whoEdit>
   <p>
     <ngb-alert [type]="'light'" [dismissible]="false">
       <span class="h3">{{Author}}</span>
-      <span class="h4">{{ CreateDate}}</span>
+      <span style="padding-left: 20px" class="h4">{{CreateDate}}</span>
     </ngb-alert>
   </p>
   <p *ngFor="let user of EditHistory; let i = index;">
@@ -47,5 +46,6 @@
       <i class="bx bxs-dislike" *ngSwitchCase="false"></i>
     </label>
   </div>
-  <span class="h5" *ngIf="isLogged()"> Рейтинг: {{status}}</span>
+  <span class="h5" style="padding-left: 20px">Автор: {{Author}}</span>
+  <span class="h5" style="padding-left: 20px" *ngIf="isLogged()"> Рейтинг: {{status}}</span>
 </span>

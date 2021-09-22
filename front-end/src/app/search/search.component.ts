@@ -13,12 +13,15 @@ export class SearchComponent extends UnityComponent{
   success: boolean;
   isLoading: boolean;
   bootstrapColor: any = BootstrapColor;
+  isLikeArticle: boolean;
+  userId: number;
 
   constructor(
     private injector: Injector
   ) {super(injector)}
 
   ngOnInit(): void {
+    this.userId = Number(localStorage.getItem('id'))
     this.isLoading = true;
     this.searchArticle()
   }
@@ -28,7 +31,7 @@ export class SearchComponent extends UnityComponent{
       this.createFlashMessage("Вы не набрали текст для поиска", 'danger', 4000)
       return false;
     }
-    this.articleService.SearchArticlesByTitle(location.hash).subscribe(({success, message, articles}) =>{
+    this.articleService.SearchArticlesByTitle(location.hash, this.userId).subscribe(({success, message, articles}) =>{
       this.success = success;
       if (!success) {
         this.createFlashMessage(message, "danger", 4000)
@@ -38,5 +41,11 @@ export class SearchComponent extends UnityComponent{
         this.isLoading = false;
       }
     })
+  }
+
+  editArticleStatus(good: boolean, articleUrl) {
+    console.log("article -----------------")
+    console.log(articleUrl)
+    this.articleService.editArticleStatus(good, articleUrl, this.userId).subscribe()
   }
 }

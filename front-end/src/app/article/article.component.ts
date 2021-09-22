@@ -72,6 +72,7 @@ export class ArticleComponent extends UnityComponent {
 
   editArticleStatus(good: boolean) {
     this.isLikeArticle = good
+    console.log(good, this.articleUrl, this.userId)
     this.articleService.editArticleStatus(good, this.articleUrl, this.userId).subscribe()
   }
 }

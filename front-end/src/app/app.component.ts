@@ -12,6 +12,7 @@ export class AppComponent {
   password: String = '}z#nC4Ci7~MlS4LN?5%h';
   userPassword: String;
   access: boolean;
+
   constructor(
     private authService: AuthService,
     private userService: UserService

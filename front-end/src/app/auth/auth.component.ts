@@ -42,6 +42,7 @@ export class AuthComponent extends UnityComponent {
           cssClass: 'alert-success',
           timeout: 4000
         });
+        location.reload();
         this.router.navigate(['dashboard'])
         this.authService.storeUser(user1, user1.id, token);
       }

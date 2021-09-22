@@ -16,10 +16,11 @@ export class ArticlesService extends UnityService {
   }
 
   CreateArticle(Article) {
+    console.log(Article)
     return this.http.post(
       this.baseUrl + '/create-article',
       Article,
-      { headers: new HttpHeaders({ 'Content-Type': 'application/json'}), responseType: null }
+      {headers: new HttpHeaders({ 'Content-Type': 'application/json'})}
     ).pipe((response: any) => response);
   }
 
@@ -35,10 +36,11 @@ export class ArticlesService extends UnityService {
     ).pipe((response: any) => response);
   }
 
-  SearchArticlesByTitle(title) {
+  SearchArticlesByTitle(title, id: number) {
     title = title.slice(title.lastIndexOf('#') + 1, title.length)
     title = {
-      title: title
+      title: title,
+      id: id
     }
     return this.http.post(
       this.baseUrl + '/search-articles-by-title',

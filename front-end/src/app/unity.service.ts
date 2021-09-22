@@ -7,7 +7,7 @@ import {HttpClient, HttpHeaders} from "@angular/common/http";
 export class UnityService {
 
   public http: HttpClient;
-  protected mainUrlServer: String = "";
+  protected mainUrlServer: String = "http://localhost:3000";
 
   constructor(
     private injector: Injector

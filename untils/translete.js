@@ -1,7 +1,4 @@
 const translete = word => {
-    console.log('Все хорошо 7')
-    //if (/^\s*(\w+)\s*$/.test(word)) return;
-    console.log('Все хорошо 8')
     const converter = {
         'а': 'a', 'б': 'b', 'в': 'v', 'г': 'g', 'д': 'd',
         'е': 'e', 'ё': 'e', 'ж': 'zh', 'з': 'z', 'и': 'i',
@@ -26,7 +23,7 @@ const translete = word => {
     answer = answer.replace(/[^-0-9a-z]/g, '-');
     answer = answer.replace(/[-]+/g, '-');
     answer = answer.replace(/^-|-$/g, '');
-    console.log('Все хорошо 9')
+    
     return answer;
 }
 module.exports = translete;
